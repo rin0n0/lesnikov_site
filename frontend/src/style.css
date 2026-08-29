@@ -1,0 +1,78 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --bg-color: #f8fafc;
+    --text-color: #0f172a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-color: #090d16;
+      --text-color: #f8fafc;
+    }
+  }
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* 2026 Liquid Crystal / 3D Glass Utilities */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    0 10px 30px -10px rgba(0, 0, 0, 0.04),
+    0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+@media (prefers-color-scheme: dark) {
+  .liquid-glass {
+    background: rgba(10, 15, 29, 0.75);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 
+      0 15px 35px -10px rgba(0, 0, 0, 0.6),
+      0 1px 0 0 rgba(255, 255, 255, 0.1) inset;
+  }
+}
+
+.liquid-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    0 15px 35px -10px rgba(0, 0, 0, 0.05),
+    0 1px 1px 0 rgba(255, 255, 255, 0.9) inset;
+}
+
+@media (prefers-color-scheme: dark) {
+  .liquid-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 
+      0 20px 40px -10px rgba(0, 0, 0, 0.5),
+      0 1px 1px 0 rgba(255, 255, 255, 0.15) inset;
+  }
+}
+
+.liquid-btn-active {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  .liquid-btn-active {
+    background: #ffffff !important;
+    color: #090d16 !important;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+  }
+}

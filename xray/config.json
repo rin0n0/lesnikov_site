@@ -1,0 +1,195 @@
+{
+    "dns": {
+        "disableCache": false,
+        "queryStrategy": "UseIP",
+        "servers": [
+            {
+                "address": "https+local://1.1.1.1/dns-query",
+                "domains": [
+                    "domain:wefewf.com",
+                    "domain:net-sphere.ru",
+                    "domain:techno2413.online"
+                ],
+                "skipFallback": true
+            },
+            {
+                "address": "localhost",
+                "domains": [
+                    "domain:wefewf.com",
+                    "domain:net-sphere.ru",
+                    "domain:techno2413.online"
+                ],
+                "skipFallback": true
+            },
+            {
+                "address": "77.88.8.8",
+                "domains": [
+                    "geosite:category-ru"
+                ],
+                "expectIPs": [
+                    "geoip:ru"
+                ],
+                "skipFallback": true
+            },
+            "https://1.1.1.1/dns-query",
+            "https://8.8.8.8/dns-query"
+        ],
+        "tag": "dns_client"
+    },
+    "inbounds": [
+        {
+            "listen": "0.0.0.0",
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": true
+            },
+            "sniffing": {
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ],
+                "enabled": true,
+                "routeOnly": true
+            },
+            "tag": "socks"
+        },
+        {
+            "listen": "0.0.0.0",
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+                "allowTransparent": false
+            },
+            "sniffing": {
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ],
+                "enabled": true,
+                "routeOnly": true
+            },
+            "tag": "http"
+        }
+    ],
+    "meta": null,
+    "outbounds": [
+        {
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "188.246.226.119",
+                        "port": 20553,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "c147b35b-4f26-0001-9c4a-063ec2a172d1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "tls",
+                "tcpSettings": {
+                },
+                "tlsSettings": {
+                    "alpn": [
+                        "h2",
+                        "http/1.1"
+                    ],
+                    "enableSessionResumption": false,
+                    "fingerprint": "firefox",
+                    "pinnedPeerCertSha256": "1aca0912d91fe2cfa7fad8f96cb5119893884c5e8278627a202b64385b69e1e8",
+                    "serverName": ""
+                }
+            },
+            "tag": "proxy"
+        },
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "block"
+        },
+        {
+            "protocol": "dns",
+            "tag": "dns-out"
+        }
+    ],
+    "remarks": "🇪🇪 ⚡ Эстония #1",
+    "routing": {
+        "domainMatcher": "hybrid",
+        "domainStrategy": "IPIfNonMatch",
+        "rules": [
+            {
+                "inboundTag": [
+                    "dns_client"
+                ],
+                "outboundTag": "direct",
+                "port": "53",
+                "type": "field"
+            },
+            {
+                "inboundTag": [
+                    "dns_client"
+                ],
+                "outboundTag": "proxy",
+                "type": "field"
+            },
+            {
+                "outboundTag": "dns-out",
+                "port": "53",
+                "type": "field"
+            },
+            {
+                "outboundTag": "direct",
+                "protocol": [
+                    "bittorrent"
+                ],
+                "type": "field"
+            },
+            {
+                "domain": [
+                    "geosite:category-ru"
+                ],
+                "outboundTag": "direct",
+                "type": "field"
+            },
+            {
+                "ip": [
+                    "geoip:ru"
+                ],
+                "outboundTag": "direct",
+                "type": "field"
+            },
+            {
+                "domain": [
+                    "geosite:private"
+                ],
+                "outboundTag": "direct",
+                "type": "field"
+            },
+            {
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "direct",
+                "type": "field"
+            },
+            {
+                "network": "tcp,udp",
+                "outboundTag": "proxy",
+                "type": "field"
+            }
+        ]
+    }
+}

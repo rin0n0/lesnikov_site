@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  xray:
+    image: teddysun/xray:latest
+    container_name: lesnikov_xray
+    restart: always
+    volumes:
+      - ./xray/config.json:/etc/xray/config.json:ro
+    networks:
+      - app-net
+
+  backend:
+    build: ./backend
+    container_name: lesnikov_backend
+    ports:
+      - "8000:8000"
+    restart: always
+    env_file:
+      - backend/.env
+    environment:
+      - HTTP_PROXY=http://xray:10809
+      - HTTPS_PROXY=http://xray:10809
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend/uploads:/app/uploads
+    depends_on:
+      - xray
+    networks:
+      - app-net
+
+  frontend:
+    build: ./frontend
+    container_name: lesnikov_frontend
+    depends_on:
+      - backend
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge
