@@ -1,0 +1,675 @@
+{
+  "home": {
+    "title": "Владимир Лесников фотограф LESNIKOVFOTO",
+    "hero_images": [
+      "home_d126d401.jpg",
+      "home_9df4621f.jpg",
+      "home_1fa95316.jpg",
+      "home_03f88df7.jpg",
+      "home_648e54ac.jpg",
+      "home_2b891cb0.jpg",
+      "home_7344db06.jpg",
+      "home_09353c7c.jpeg",
+      "home_0bf30e53.jpeg",
+      "home_48cc7d75.jpg",
+      "home_c8f623e8.jpeg",
+      "home_4f5e0e12.jpeg",
+      "home_c7312d59.jpeg",
+      "home_f8ddd814.jpeg",
+      "home_177dbd37.jpeg",
+      "home_119d7282.jpeg",
+      "home_51c3974c.jpeg",
+      "home_18b48fd3.jpeg",
+      "home_3d0571ff.jpeg",
+      "home_06c8dc85.jpeg",
+      "home_a71efd4c.jpeg",
+      "home_d56e0ded.jpeg",
+      "home_88e14aad.jpeg",
+      "home_0469e806.jpeg",
+      "home_fc6eb629.jpeg",
+      "home_9d5bd7da.jpeg",
+      "home_e31de9b8.jpeg",
+      "home_308f63f4.jpeg",
+      "home_23f59fef.jpeg",
+      "home_4924ac09.jpeg",
+      "home_83db432f.jpeg",
+      "home_e28d1214.jpeg",
+      "home_5ce21054.jpeg",
+      "home_34fc7a76.jpeg",
+      "home_7a640c6a.jpeg",
+      "home_70cf27a7.jpeg",
+      "home_01110924.jpeg",
+      "home_ebe334b2.jpeg",
+      "home_22f6e89b.jpeg",
+      "home_96fc394b.jpeg",
+      "home_9e4d052c.jpeg",
+      "home_46e2efcb.jpeg",
+      "home_325ef836.jpeg",
+      "home_6db3b661.jpeg",
+      "home_8cd9fa90.jpeg",
+      "home_44ae212c.jpeg",
+      "home_c4d29f2f.jpeg",
+      "home_c77e57ee.jpeg",
+      "home_ea8ce88e.jpeg",
+      "home_71e9106a.jpeg",
+      "home_6f42ce64.jpeg",
+      "home_fcc74b98.jpeg",
+      "home_0a49c7d5.jpeg",
+      "home_f8e466ab.jpeg",
+      "home_138562a5.jpeg",
+      "home_67ebbeda.jpeg",
+      "home_24b92cb9.jpeg",
+      "home_fc8e1e70.jpeg",
+      "home_158b9cf3.jpeg",
+      "home_0572afaa.jpeg",
+      "home_c8967fd4.jpeg",
+      "home_c013cd3a.jpeg",
+      "home_5888e56e.jpeg",
+      "home_7ba15a21.jpeg",
+      "home_6206dd67.jpeg",
+      "home_b8ad5572.jpeg",
+      "home_01ae9882.jpeg",
+      "home_4f234e0e.jpeg",
+      "home_d8af8954.jpeg",
+      "home_30f645ae.jpeg",
+      "home_69185d71.jpeg",
+      "home_383ab89a.jpeg",
+      "home_09702054.jpeg",
+      "home_def1cc28.jpeg",
+      "home_e9422817.jpeg",
+      "home_0a3b90a9.jpeg",
+      "home_f65b81e7.jpeg"
+    ]
+  },
+  "albums": {
+    "kindergarten": {
+      "title": "Выпускные альбомы Детский сад",
+      "items": [
+        {
+          "name": "Фотоальбом #1 20х20 от 5 разворотов (твердая обложка, твердые страницы)",
+          "price": 3300
+        },
+        {
+          "name": "Фотоальбом #2 20х20 от 5 разворотов (твердая обложка, твердые страницы)",
+          "price": 3300
+        },
+        {
+          "name": "Фотоальбом #4 20х30 от 5 разворотов (твердая обложка, твердые страницы)",
+          "price": 3800
+        },
+        {
+          "name": "Фотоальбом #5 20х30 от 5 разворотов (твердая обложка, твердые страницы)",
+          "price": 3800
+        },
+        {
+          "name": "Фотоальбом #6 20х30 от 5 разворотов (твердая обложка, твердые страницы)",
+          "price": 3800
+        },
+        {
+          "name": "Фотоальбом #7 20х30 от 25 разворотов (твердая обложка, мягкие страницы)",
+          "price": 4000
+        },
+        {
+          "name": "Фотопланшет #9 для воспитателей",
+          "price": 2000
+        },
+        {
+          "name": "\"Оживающие\" фото",
+          "price": 700
+        }
+      ],
+      "images": [
+        "kindergarten_4ea41907.jpg",
+        "kindergarten_7a61d720.jpg",
+        "kindergarten_73471861.jpg",
+        "kindergarten_628ad8c0.jpg",
+        "kindergarten_413f7f0d.jpg",
+        "kindergarten_8d9484e3.jpg",
+        "kindergarten_9cdced5d.jpg",
+        "kindergarten_e7468700.jpg",
+        "kindergarten_d57e1998.jpg"
+      ],
+      "models": [
+        {
+          "id": "model_model_1_kindergarten",
+          "category": "kindergarten",
+          "num": "#1",
+          "name": "Фотоальбом #1 20х20 от 5 разворотов (твердая обложка, твердые страницы)",
+          "price": 3300,
+          "description": "Фотоальбом размером 20х20 с твёрдой обложкой и твёрдыми страницами. \n \nТакой альбом можно выполнить на 5, 7, 10 разворотов:\nАльбом на 5 разворотов - 3300 р.\nАльбом на 7 разворотов - 3800 р.\nАльбом на 10 разворотов - 4500 р.\n \nВ фотоальбоме личные фото ребёнка и групповые фото детей, разворот с портретными фото всех детей и воспитателей. Альбомы верстаются персонально для каждого ребенка.\n \nУказанная цена включает в себя 2 визита фотографа для фотосъёмки. Возможен третий приезд для досъёмки отсутствовавших детей. При желании фотографии для альбома родители могут выбрать самостоятельно на интернет-странице, доступной только по ссылке.",
+          "spread_options": [
+            {
+              "spreads": 5,
+              "price": 3300
+            },
+            {
+              "spreads": 7,
+              "price": 3800
+            },
+            {
+              "spreads": 10,
+              "price": 4500
+            }
+          ],
+          "images": [
+            "album_model_1_kindergarten_01.jpg",
+            "album_model_1_kindergarten_02.jpg",
+            "album_model_1_kindergarten_03.jpg",
+            "album_model_1_kindergarten_04.jpg",
+            "album_model_1_kindergarten_05.jpg",
+            "album_model_1_kindergarten_06.jpg",
+            "album_model_1_kindergarten_07.jpg",
+            "album_model_1_kindergarten_08.jpg",
+            "album_model_1_kindergarten_09.jpg",
+            "album_model_1_kindergarten_10.jpg"
+          ],
+          "cover_image": "album_model_1_kindergarten_01.jpg",
+          "format": "20х20",
+          "cover": "Твердая обложка, твердые страницы",
+          "badge": "20х20 · #1"
+        },
+        {
+          "id": "model_model_2_kindergarten",
+          "category": "kindergarten",
+          "num": "#2",
+          "name": "Фотоальбом #2 20х20 от 5 разворотов (твердая обложка, твердые страницы)",
+          "price": 3300,
+          "description": "Фотоальбом размером 20х20 с твёрдой обложкой и твёрдыми страницами. \n \nТакой альбом можно выполнить на 5, 7, 10 разворотов:\nАльбом на 5 разворотов - 3300 р.\nАльбом на 7 разворотов - 3800 р.\nАльбом на 10 разворотов - 4500 р.\n \nВ фотоальбоме личные фото ребёнка и групповые фото детей, разворот с портретными фото всех детей и воспитателей. Альбомы верстаются персонально для каждого ребенка.\n \nУказанная цена включает в себя 2 визита фотографа для фотосъёмки. Возможен третий приезд для досъёмки отсутствовавших детей. При желании фотографии для альбома родители могут выбрать самостоятельно на интернет-странице, доступной только по ссылке.",
+          "spread_options": [
+            {
+              "spreads": 5,
+              "price": 3300
+            },
+            {
+              "spreads": 7,
+              "price": 3800
+            },
+            {
+              "spreads": 10,
+              "price": 4500
+            }
+          ],
+          "images": [
+            "album_model_2_kindergarten_01.jpg",
+            "album_model_2_kindergarten_02.jpg",
+            "album_model_2_kindergarten_03.jpg",
+            "album_model_2_kindergarten_04.jpg",
+            "album_model_2_kindergarten_05.jpg",
+            "album_model_2_kindergarten_06.jpg",
+            "album_model_2_kindergarten_07.jpg",
+            "album_model_2_kindergarten_08.jpg"
+          ],
+          "cover_image": "album_model_2_kindergarten_01.jpg",
+          "format": "20х20",
+          "cover": "Твердая обложка, твердые страницы",
+          "badge": "20х20 · #2"
+        },
+        {
+          "id": "model_model_4_kindergarten",
+          "category": "kindergarten",
+          "num": "#4",
+          "name": "Фотоальбом #4 20х30 от 5 разворотов (твердая обложка, твердые страницы)",
+          "price": 3800,
+          "description": "Фотоальбом размером 20х30 с твёрдой обложкой и твёрдыми страницами.\n \nТакой альбом можно выполнить на 5, 7, 10 разворотов:\nАльбом на 5 разворотов - 3800 р.\nАльбом на 7 разворотов - 4300 р.\nАльбом на 10 разворотов - 5000 р.\n \nВ фотоальбоме личные фото ребёнка и групповые фото детей, разворот с портретными фото всех детей и воспитателей. Альбомы верстаются персонально для каждого ребенка.\n \nУказанная цена включает в себя 2 визита фотографа для фотосъёмки. Возможен третий приезд для досъёмки отсутствовавших детей. При желании фотографии для альбома родители могут выбрать самостоятельно на интернет-странице, доступной только по ссылке.",
+          "spread_options": [
+            {
+              "spreads": 5,
+              "price": 3800
+            },
+            {
+              "spreads": 7,
+              "price": 4300
+            },
+            {
+              "spreads": 10,
+              "price": 5000
+            }
+          ],
+          "images": [
+            "album_model_4_kindergarten_01.jpg",
+            "album_model_4_kindergarten_02.jpg",
+            "album_model_4_kindergarten_03.jpg",
+            "album_model_4_kindergarten_04.jpg",
+            "album_model_4_kindergarten_05.jpg",
+            "album_model_4_kindergarten_06.jpg",
+            "album_model_4_kindergarten_07.jpg"
+          ],
+          "cover_image": "album_model_4_kindergarten_01.jpg",
+          "format": "20х30",
+          "cover": "Твердая обложка, твердые страницы",
+          "badge": "20х30 · #4"
+        },
+        {
+          "id": "model_model_5_kindergarten",
+          "category": "kindergarten",
+          "num": "#5",
+          "name": "Фотоальбом #5 20х30 от 5 разворотов (твердая обложка, твердые страницы)",
+          "price": 3800,
+          "description": "Фотоальбом размером 20х30 с твёрдой обложкой и твёрдыми страницами. \n \nТакой альбом можно выполнить на 5, 7, 10 разворотов:\nАльбом на 5 разворотов - 3800 р.\nАльбом на 7 разворотов - 4300 р.\nАльбом на 10 разворотов - 5000 р.\n \nВ фотоальбоме личные фото ребёнка и групповые фото детей, разворот с портретными фото всех детей и воспитателей. Альбомы верстаются персонально для каждого ребенка.\n \nУказанная цена включает в себя 2 визита фотографа для фотосъёмки. Возможен третий приезд для досъёмки отсутствовавших детей. При желании фотографии для альбома родители могут выбрать самостоятельно на интернет-странице, доступной только по ссылке.",
+          "spread_options": [
+            {
+              "spreads": 5,
+              "price": 3800
+            },
+            {
+              "spreads": 7,
+              "price": 4300
+            },
+            {
+              "spreads": 10,
+              "price": 5000
+            }
+          ],
+          "images": [
+            "album_model_5_kindergarten_01.jpg",
+            "album_model_5_kindergarten_02.jpg",
+            "album_model_5_kindergarten_03.jpg",
+            "album_model_5_kindergarten_04.jpg",
+            "album_model_5_kindergarten_05.jpg",
+            "album_model_5_kindergarten_06.jpg",
+            "album_model_5_kindergarten_07.jpg",
+            "album_model_5_kindergarten_08.jpg"
+          ],
+          "cover_image": "album_model_5_kindergarten_01.jpg",
+          "format": "20х30",
+          "cover": "Твердая обложка, твердые страницы",
+          "badge": "20х30 · #5"
+        },
+        {
+          "id": "model_model_6_kindergarten",
+          "category": "kindergarten",
+          "num": "#6",
+          "name": "Фотоальбом #6 20х30 от 5 разворотов (твердая обложка, твердые страницы)",
+          "price": 3800,
+          "description": "Фотоальбом размером 20х30 с твёрдой обложкой и твёрдыми страницами.\n \nТакой альбом можно выполнить на 5, 7, 10 разворотов:\nАльбом на 5 разворотов - 3800 р.\nАльбом на 7 разворотов - 4300 р.\nАльбом на 10 разворотов - 5000 р.\n \nВ фотоальбоме личные фото ребёнка и групповые фото детей, разворот с портретными фото всех детей и воспитателей. Альбомы верстаются персонально для каждого ребенка.\n \nУказанная цена включает в себя 2 визита фотографа для фотосъёмки. Возможен третий приезд для досъёмки отсутствовавших детей. При желании фотографии для альбома родители могут выбрать самостоятельно на интернет-странице, доступной только по ссылке.",
+          "spread_options": [
+            {
+              "spreads": 5,
+              "price": 3800
+            },
+            {
+              "spreads": 7,
+              "price": 4300
+            },
+            {
+              "spreads": 10,
+              "price": 5000
+            }
+          ],
+          "images": [
+            "album_model_6_kindergarten_01.jpg",
+            "album_model_6_kindergarten_02.jpg",
+            "album_model_6_kindergarten_03.jpg",
+            "album_model_6_kindergarten_04.jpg",
+            "album_model_6_kindergarten_05.jpg",
+            "album_model_6_kindergarten_06.jpg",
+            "album_model_6_kindergarten_07.jpg"
+          ],
+          "cover_image": "album_model_6_kindergarten_01.jpg",
+          "format": "20х30",
+          "cover": "Твердая обложка, твердые страницы",
+          "badge": "20х30 · #6"
+        },
+        {
+          "id": "model_model_7_kindergarten",
+          "category": "kindergarten",
+          "num": "#7",
+          "name": "Фотоальбом #7 20х30 от 25 разворотов (твердая обложка, мягкие страницы)",
+          "price": 4000,
+          "description": "Фотоальбом размером 20х30 с твёрдой обложкой и журнальными страницами. Фотоальбом от 25 разворотов.\nКаждому ребёнку посвящён один разворот с портретными фото. В конце альбома помещены общие групповые фото детей. На одном из разворотов портретные фото воспитателей и педагогического состава детского сада.\n \nУказанная цена включает в себя 2 визита фотографа для фотосъёмки. Возможен третий приезд для досъёмки отсутствовавших детей. При желании фотографии для альбома родители могут выбрать самостоятельно на интернет-странице, доступной только по ссылке.",
+          "spread_options": [],
+          "images": [
+            "album_model_7_kindergarten_01.jpg",
+            "album_model_7_kindergarten_02.jpg",
+            "album_model_7_kindergarten_03.jpg",
+            "album_model_7_kindergarten_04.jpg",
+            "album_model_7_kindergarten_05.jpg",
+            "album_model_7_kindergarten_06.jpg",
+            "album_model_7_kindergarten_07.jpg",
+            "album_model_7_kindergarten_08.jpg",
+            "album_model_7_kindergarten_09.jpg",
+            "album_model_7_kindergarten_10.jpg",
+            "album_model_7_kindergarten_11.jpg",
+            "album_model_7_kindergarten_12.jpg",
+            "album_model_7_kindergarten_13.jpg"
+          ],
+          "cover_image": "album_model_7_kindergarten_01.jpg",
+          "format": "20х30",
+          "cover": "Твердая обложка, мягкие страницы",
+          "badge": "20х30 · #7"
+        },
+        {
+          "id": "model_model_9_kindergarten",
+          "category": "kindergarten",
+          "num": "#9",
+          "name": "Фотопланшет #9 для воспитателей",
+          "price": 2000,
+          "description": "Фотопланшет для воспитателейразмером 20х20 или 20х30 с твёрдыми страницами.\n \nФотопланшет включает в себя портретные и групповые фото детей и воспитателей.",
+          "spread_options": [],
+          "images": [
+            "album_model_9_kindergarten_01.jpg",
+            "album_model_9_kindergarten_02.jpg",
+            "album_model_9_kindergarten_03.jpg",
+            "album_model_9_kindergarten_04.jpg",
+            "album_model_9_kindergarten_05.jpg"
+          ],
+          "cover_image": "album_model_9_kindergarten_01.jpg",
+          "format": "Планшет 20х20",
+          "cover": "Твердая обложка",
+          "badge": "Планшет 20х20 · #9"
+        },
+        {
+          "id": "model_live_kindergarten",
+          "category": "kindergarten",
+          "num": "live",
+          "name": "Оживающие фото",
+          "price": 700,
+          "description": "В любой фотоальбом можно добавить оживающие фото - это видео, которое появляется на экране телефона либо планшета при наведении его на определенное фото в альбоме.\nВ альбом можно добавить любое количество &quot;оживающих&quot; фото.\nДлительность каждого видео - до 1 минуты.\nСтоимость одного фото - 700 руб.",
+          "spread_options": [],
+          "images": [
+            "album_live_kindergarten_01.jpg",
+            "album_live_kindergarten_02.jpg",
+            "album_live_kindergarten_03.jpg"
+          ],
+          "cover_image": "album_live_kindergarten_01.jpg",
+          "format": "AR-фото",
+          "cover": "Твердая обложка",
+          "badge": "AR-фото · live"
+        }
+      ]
+    },
+    "grade_4": {
+      "title": "Школьные альбомы 4 класс",
+      "items": [
+        {
+          "name": "Фотоальбом #10 20х30 на 3 разворота (твердая обложка, твердые страницы)",
+          "price": 3200
+        },
+        {
+          "name": "Фотоальбом #11 20х30 на 3 разворота (твердая обложка, твердые страницы)",
+          "price": 3200
+        },
+        {
+          "name": "Фотопланшет трюмо #13",
+          "price": 2700
+        },
+        {
+          "name": "\"Оживающие\" фото",
+          "price": 700
+        }
+      ],
+      "images": [
+        "grade_4_3c49c5e3.jpg",
+        "grade_4_8d9484e3.jpg",
+        "grade_4_90370bad.jpg",
+        "grade_4_090cef7c.jpg",
+        "grade_4_e9e5705a.jpg",
+        "grade_4_b44fc966.jpg",
+        "grade_4_aa03e80e.jpg",
+        "grade_4_9243a48d.jpg",
+        "grade_4_5b584460.jpg"
+      ],
+      "models": [
+        {
+          "id": "model_model_10_grade_4",
+          "category": "grade_4",
+          "num": "#10",
+          "name": "Фотоальбом #10 20х30 на 3 разворота (твердая обложка, твердые страницы)",
+          "price": 3200,
+          "description": "Фотоальбом размером 20х30 с твёрдой обложкой и твёрдыми страницами. Фотоальбом 3 разворота: \n- личные фотографии ребёнка,\n- портреты всех детей и учителя,\n- групповое фото всего класса.\n \nУказанная цена включает в себя 2 визита фотографа для фотосъёмки. Альбомы верстаются персонально для каждого ребенка.",
+          "spread_options": [],
+          "images": [
+            "album_model_10_grade_4_01.jpg",
+            "album_model_10_grade_4_02.jpg",
+            "album_model_10_grade_4_03.jpg",
+            "album_model_10_grade_4_04.jpg",
+            "album_model_10_grade_4_05.jpg",
+            "album_model_10_grade_4_06.jpg"
+          ],
+          "cover_image": "album_model_10_grade_4_01.jpg",
+          "format": "20х30",
+          "cover": "Твердая обложка, твердые страницы",
+          "badge": "20х30 · #10"
+        },
+        {
+          "id": "model_model_11_grade_4",
+          "category": "grade_4",
+          "num": "#11",
+          "name": "Фотоальбом #11 20х30 на 3 разворота (твердая обложка, твердые страницы)",
+          "price": 3200,
+          "description": "Фотоальбом размером 20х30 с твёрдой обложкой и твёрдыми страницами. Фотоальбом 3 разворота: - личные фотографии ребёнка,- портреты всех детей и учителя,- групповое фото всего класса.Указанная цена включает в себя 2 визита фотографа для фотосъёмки. Альбомы верстаются персонально для каждого ребенка.",
+          "spread_options": [],
+          "images": [
+            "album_model_11_grade_4_01.jpg",
+            "album_model_11_grade_4_02.jpg",
+            "album_model_11_grade_4_03.jpg",
+            "album_model_11_grade_4_04.jpg",
+            "album_model_11_grade_4_05.jpg"
+          ],
+          "cover_image": "album_model_11_grade_4_01.jpg",
+          "format": "20х30",
+          "cover": "Твердая обложка, твердые страницы",
+          "badge": "20х30 · #11"
+        },
+        {
+          "id": "model_model_13_grade_4",
+          "category": "grade_4",
+          "num": "#13",
+          "name": "Фотопланшет трюмо #13",
+          "price": 2700,
+          "description": "Фотопланшет с твёрдом переплёте. Фотопланшет включает в себя портретное фото ученика, портреты всех детей и классного учителя, общие фото детей.\n \nУказанная цена включает в себя 1-2 визита фотографа для фотосъёмки.",
+          "spread_options": [],
+          "images": [
+            "album_model_13_grade_4_01.jpg",
+            "album_model_13_grade_4_02.jpg",
+            "album_model_13_grade_4_03.jpg",
+            "album_model_13_grade_4_04.jpg",
+            "album_model_13_grade_4_05.jpg",
+            "album_model_13_grade_4_06.jpg"
+          ],
+          "cover_image": "album_model_13_grade_4_01.jpg",
+          "format": "Трюмо 20х30",
+          "cover": "3 створки (триптих)",
+          "badge": "Трюмо 20х30 · #13"
+        }
+      ]
+    },
+    "grade_11": {
+      "title": "Школьные выпускные альбомы 9 и 11 класса",
+      "items": [
+        {
+          "name": "\"Оживающие\" фото",
+          "price": 700
+        },
+        {
+          "name": "Фотоальбом #15 20х30 от 10 разворотов (твердая обложка, твердые страницы)",
+          "price": 5000
+        },
+        {
+          "name": "Фотоальбом #14 20х30 от 25 разворотов (твердая обложка, мягкие страницы)",
+          "price": 4000
+        },
+        {
+          "name": "Фотоальбом #16 20х30 от 10 разворотов (твердая обложка, твердые страницы)",
+          "price": 5000
+        }
+      ],
+      "images": [
+        "grade_11_34f569f0.jpg",
+        "grade_11_b34baac8.jpg",
+        "grade_11_75dca15b.jpg",
+        "grade_11_4c59e8f6.jpg",
+        "grade_11_cb1cad55.jpg",
+        "grade_11_6ce10271.jpg",
+        "grade_11_8d9484e3.jpg",
+        "grade_11_9ca80388.jpg",
+        "grade_11_29d6527e.jpg"
+      ],
+      "models": [
+        {
+          "id": "model_model_15_grade_11",
+          "category": "grade_11",
+          "num": "#15",
+          "name": "Фотоальбом #15 20х30 от 10 разворотов (твердая обложка, твердые страницы)",
+          "price": 5000,
+          "description": "Фотоальбом размером 20х30 с твёрдой обложкой и твёрдыми страницами на 10 разворотов.\nВ фотоальбоме личные портретные фото учеников, групповые фото детей, портреты учителей. Возможна съёмка в фотостудии.\n \nСтоимость - 5000 руб. за 10 разворотов. Возможно большее количество разворотов при увеличении стоимости.\n \nУказанная цена включает в себя 2 визита фотографа для фотосъёмки. Возможен третий приезд для досъёмки отсутствовавших детей. При желании фотографии для альбома можно выбрать самостоятельно на интернет-странице, доступной только по ссылке.",
+          "spread_options": [],
+          "images": [
+            "album_model_15_grade_11_01.jpg",
+            "album_model_15_grade_11_02.jpg",
+            "album_model_15_grade_11_03.jpg",
+            "album_model_15_grade_11_04.jpg",
+            "album_model_15_grade_11_05.jpg",
+            "album_model_15_grade_11_06.jpg",
+            "album_model_15_grade_11_07.jpg"
+          ],
+          "cover_image": "album_model_15_grade_11_01.jpg",
+          "format": "20х30",
+          "cover": "Твердая обложка, твердые страницы",
+          "badge": "20х30 · #15"
+        },
+        {
+          "id": "model_model_14_grade_11",
+          "category": "grade_11",
+          "num": "#14",
+          "name": "Фотоальбом #14 20х30 от 25 разворотов (твердая обложка, мягкие страницы)",
+          "price": 4000,
+          "description": "Фотоальбом размером 20х30 с твёрдой обложкой и журнальными страницами. Фотоальбом от 25 разворотов.\nКаждому ребёнку посвящён один разворот. В конце альбома помещены общие фото детей, групповые фото всего класса. На одном из разворотов портретные фото учителей.\nВозможно большее количество разворотов при увеличении стоимости альбома.\n \nУказанная цена включает в себя 2 визита фотографа для фотосъёмки. Возможен третий приезд для досъёмки отсутствовавших детей. При желании фотографии для альбома можно выбрать самостоятельно на интернет-странице, доступной только по ссылке.",
+          "spread_options": [],
+          "images": [
+            "album_model_14_grade_11_01.jpg",
+            "album_model_14_grade_11_02.jpg",
+            "album_model_14_grade_11_03.jpg",
+            "album_model_14_grade_11_04.jpg",
+            "album_model_14_grade_11_05.jpg",
+            "album_model_14_grade_11_06.jpg",
+            "album_model_14_grade_11_07.jpg",
+            "album_model_14_grade_11_08.jpg",
+            "album_model_14_grade_11_09.jpg",
+            "album_model_14_grade_11_10.jpg",
+            "album_model_14_grade_11_11.jpg"
+          ],
+          "cover_image": "album_model_14_grade_11_01.jpg",
+          "format": "20х30",
+          "cover": "Твердая обложка, мягкие страницы",
+          "badge": "20х30 · #14"
+        },
+        {
+          "id": "model_model_16_grade_11",
+          "category": "grade_11",
+          "num": "#16",
+          "name": "Фотоальбом #16 20х30 от 10 разворотов (твердая обложка, твердые страницы)",
+          "price": 5000,
+          "description": "Фотоальбом размером 20х30 с твёрдой обложкой и твёрдыми страницами на 10 разворотов.\nВ фотоальбоме личные портретные фото учеников, групповые фото детей, портреты учителей. Возможна съёмка в фотостудии.\n \nСтоимость - от 4500 руб. в зависимости от количества разворотов.\n \nУказанная цена включает в себя 2 визита фотографа для фотосъёмки. Возможен третий приезд для досъёмки отсутствовавших детей. При желании фотографии для альбома можно выбрать самостоятельно на интернет-странице, доступной только по ссылке.",
+          "spread_options": [],
+          "images": [
+            "album_model_16_grade_11_01.jpg",
+            "album_model_16_grade_11_02.jpg",
+            "album_model_16_grade_11_03.jpg",
+            "album_model_16_grade_11_04.jpg",
+            "album_model_16_grade_11_05.jpg",
+            "album_model_16_grade_11_06.jpg",
+            "album_model_16_grade_11_07.jpg",
+            "album_model_16_grade_11_08.jpg",
+            "album_model_16_grade_11_09.jpg",
+            "album_model_16_grade_11_10.jpg",
+            "album_model_16_grade_11_11.jpg",
+            "album_model_16_grade_11_12.jpg",
+            "album_model_16_grade_11_13.jpg"
+          ],
+          "cover_image": "album_model_16_grade_11_01.jpg",
+          "format": "20х30",
+          "cover": "Твердая обложка, твердые страницы",
+          "badge": "20х30 · #16"
+        }
+      ]
+    }
+  },
+  "photoshoots": {
+    "wedding": {
+      "title": "Свадебная фотография",
+      "price": "5000",
+      "images": [
+        "wedding_6a79d611.jpg",
+        "wedding_f77ed773.jpg",
+        "wedding_ee8bf90f.jpg",
+        "wedding_0db31999.jpg",
+        "wedding_2322f64d.jpg",
+        "wedding_d41513ef.jpg",
+        "wedding_7c725ea2.jpg",
+        "wedding_48f362d1.jpg",
+        "wedding_d6987d1d.jpg"
+      ]
+    },
+    "family": {
+      "title": "Семейная и детская фотография",
+      "price": "5000",
+      "images": [
+        "family_3693a667.jpg",
+        "family_ee9ff515.jpg",
+        "family_8ad494f6.jpg",
+        "family_a480b604.jpg",
+        "family_12def599.jpg",
+        "family_084dd900.jpg",
+        "family_431e5fd3.jpg",
+        "family_dd413ac0.jpg",
+        "family_0ffa86b4.jpg"
+      ]
+    },
+    "individual": {
+      "title": "Индивидуальные фотосессии",
+      "price": "5000",
+      "images": [
+        "individual_298061f5.jpg",
+        "individual_ac385617.jpg",
+        "individual_1b7a497a.jpg",
+        "individual_891bd321.jpg",
+        "individual_2df3fb36.jpg",
+        "individual_05bc6909.jpg",
+        "individual_01a7f136.jpg",
+        "individual_480dfec9.jpg",
+        "individual_b3972148.jpg"
+      ]
+    },
+    "maternity": {
+      "title": "В ожидании",
+      "price": "5000",
+      "images": [
+        "maternity_cd1fc0af.jpg",
+        "maternity_263994a2.jpg",
+        "maternity_6a57b81c.jpg",
+        "maternity_071fa322.jpg",
+        "maternity_116952c5.jpg",
+        "maternity_b4077e4d.jpg",
+        "maternity_779ab29a.jpg",
+        "maternity_e02ce8b6.jpg",
+        "maternity_22f99e24.jpg"
+      ]
+    },
+    "reportage": {
+      "title": "Репортажная съемка",
+      "price": "5000",
+      "images": [
+        "reportage_0390a6cb.jpg",
+        "reportage_b2581fd2.jpg",
+        "reportage_8370f8b2.jpg",
+        "reportage_8ccce760.jpg",
+        "reportage_38f19d43.jpg",
+        "reportage_17b476fb.jpg",
+        "reportage_4983ba03.jpg",
+        "reportage_2220d32a.jpg",
+        "reportage_d95bf150.jpg"
+      ]
+    }
+  },
+  "contacts": {
+    "name": "Владимир Лесников",
+    "phone": "+7 (911) 777-57-00",
+    "email": "lesnikovfoto@mail.ru",
+    "email_alt": "bornfire@mail.ru",
+    "vk": "https://vk.com/lesnikovfoto",
+    "telegram": "https://t.me/lesnikovfoto",
+    "whatsapp": "https://wa.me/79117775700",
+    "location": "Санкт-Петербург и Ленинградская обл."
+  }
+}

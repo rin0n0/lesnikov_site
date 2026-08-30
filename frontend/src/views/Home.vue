@@ -81,9 +81,10 @@ import { fetchSiteData } from '../api'
 import UniformPhotoGrid from '../components/UniformPhotoGrid.vue'
 import LightboxModal from '../components/LightboxModal.vue'
 import AppIcon from '../components/AppIcon.vue'
+import defaultData from '../data/defaultData.json'
 
-const images = ref<string[]>([])
-const loading = ref(true)
+const images = ref<string[]>(defaultData.home?.hero_images || [])
+const loading = ref(false)
 const selectedImageIdx = ref<number | null>(null)
 
 // Exclude avatar photo from general grid
@@ -93,10 +94,9 @@ const galleryImages = computed(() => {
 
 onMounted(async () => {
   const data = await fetchSiteData()
-  if (data && data.home) {
-    images.value = data.home.hero_images || []
+  if (data && data.home && data.home.hero_images) {
+    images.value = data.home.hero_images
   }
-  loading.value = false
 })
 
 function openLightbox(index: number) {

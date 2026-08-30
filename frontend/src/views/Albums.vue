@@ -203,9 +203,10 @@ import UniformPhotoGrid from '../components/UniformPhotoGrid.vue'
 import LightboxModal from '../components/LightboxModal.vue'
 import CategoryIcon from '../components/CategoryIcon.vue'
 import AppIcon from '../components/AppIcon.vue'
+import defaultData from '../data/defaultData.json'
 
-const siteData = ref<any>(null)
-const loading = ref(true)
+const siteData = ref<any>(defaultData)
+const loading = ref(false)
 const activeTab = ref('kindergarten')
 const viewMode = ref<'models' | 'gallery'>('models')
 const selectedImageIdx = ref<number | null>(null)
@@ -274,7 +275,9 @@ function getCleanShortDesc(desc: string) {
 }
 
 onMounted(async () => {
-  siteData.value = await fetchSiteData()
-  loading.value = false
+  const data = await fetchSiteData()
+  if (data) {
+    siteData.value = data
+  }
 })
 </script>
