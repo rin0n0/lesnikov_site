@@ -7,12 +7,17 @@ import hashlib
 import urllib.parse
 import uuid
 import shutil
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from datetime import datetime
 from PIL import Image, ImageOps
 from fastapi import FastAPI, Request, UploadFile, File, Form, Header, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from aiogram import Bot, Dispatcher, types
+from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.enums import ParseMode
 from aiogram.filters import Command
 from pydantic import BaseModel
@@ -27,6 +32,7 @@ logging.basicConfig(level=logging.INFO)
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "123456789:AABBCCDD_abcdefgh")
 TELEGRAM_ADMIN_ID = os.getenv("TELEGRAM_ADMIN_ID", "12345678")
 ADMIN_IDS = [x.strip() for x in TELEGRAM_ADMIN_ID.split(",") if x.strip()]
+PROXY_URL = os.getenv("PROXY_URL") or os.getenv("HTTPS_PROXY") or os.getenv("HTTP_PROXY")
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "data", "data.json")
 UPLOADS_DIR = os.path.join(os.path.dirname(__file__), "uploads")
@@ -53,8 +59,9 @@ def save_data(data):
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-app = FastAPI(title="LesnikovFoto API & TMA Admin")
+app = FastAPI(title="Vladimir Lesnikov Photography API")
 
+# Setup CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -81,11 +88,23 @@ async def get_thumbnail(filename: str):
 # Static full-res uploads
 app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
 
+# Bot session with Xray proxy support (Обход блокировок Telegram API)
+bot_session = None
+if PROXY_URL:
+    try:
+        bot_session = AiohttpSession(proxy=PROXY_URL)
+        logging.info(f"🛡️ Configured AiohttpSession with Xray proxy: {PROXY_URL}")
+    except Exception as e:
+        logging.error(f"Failed to initialize proxy session: {e}")
+
 bot = None
 dp = Dispatcher()
 if TELEGRAM_BOT_TOKEN and not TELEGRAM_BOT_TOKEN.startswith("123456789:"):
     try:
-        bot = Bot(token=TELEGRAM_BOT_TOKEN)
+        if bot_session:
+            bot = Bot(token=TELEGRAM_BOT_TOKEN, session=bot_session)
+        else:
+            bot = Bot(token=TELEGRAM_BOT_TOKEN)
     except Exception as e:
         logging.warning(f"Bot init error: {e}")
 
@@ -167,6 +186,53 @@ def save_lead(lead_dict: dict):
     except Exception as e:
         logging.error(f"Error saving lead to file: {e}")
 
+def get_client_ip(request: Request) -> str:
+    forwarded = request.headers.get("X-Forwarded-For")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    real_ip = request.headers.get("X-Real-IP")
+    if real_ip:
+        return real_ip.strip()
+    return request.client.host if request.client else "127.0.0.1"
+
+def send_email_notification(subject: str, text_content: str, html_content: str = None) -> bool:
+    smtp_host = os.getenv("SMTP_HOST")
+    smtp_port = int(os.getenv("SMTP_PORT", "465"))
+    smtp_user = os.getenv("SMTP_USER")
+    smtp_password = os.getenv("SMTP_PASSWORD")
+    target_email = os.getenv("TARGET_EMAIL", "artemelesnikov@gmail.com")
+
+    if not (smtp_host and smtp_user and smtp_password):
+        return False
+
+    try:
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = subject
+        msg["From"] = f"LESNIKOVFOTO <{smtp_user}>"
+        msg["To"] = target_email
+
+        part1 = MIMEText(text_content, "plain", "utf-8")
+        msg.attach(part1)
+
+        if html_content:
+            part2 = MIMEText(html_content, "html", "utf-8")
+            msg.attach(part2)
+
+        if smtp_port == 465:
+            with smtplib.SMTP_SSL(smtp_host, smtp_port, timeout=10) as server:
+                server.login(smtp_user, smtp_password)
+                server.sendmail(smtp_user, [target_email], msg.as_string())
+        else:
+            with smtplib.SMTP(smtp_host, smtp_port, timeout=10) as server:
+                server.starttls()
+                server.login(smtp_user, smtp_password)
+                server.sendmail(smtp_user, [target_email], msg.as_string())
+        logging.info(f"📧 FEEDBACK: Email successfully sent to {target_email}")
+        return True
+    except Exception as e:
+        logging.error(f"📧 FEEDBACK: SMTP Error: {e}")
+        return False
+
 async def send_telegram_notifications(text: str, lead_id: str):
     if bot is None or not TELEGRAM_BOT_TOKEN or TELEGRAM_BOT_TOKEN.startswith("123456789:"):
         return
@@ -188,12 +254,17 @@ async def send_telegram_notifications(text: str, lead_id: str):
             logging.warning(f"⚠️ Could not deliver lead to admin {admin_id} (bot not started or chat not found): {e}")
 
 @app.post("/api/contact")
-async def post_contact(form: ContactForm):
+async def post_contact(request: Request, form: ContactForm):
     timestamp_now = int(time.time())
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    client_ip = get_client_ip(request)
     lead_id = uuid.uuid4().hex[:10]
+    
     lead_entry = {
         "id": lead_id,
+        "timestamp": now_str,
         "created_at": timestamp_now,
+        "ip": client_ip,
         "name": form.name,
         "phone": form.phone,
         "email": form.email,
@@ -204,18 +275,41 @@ async def post_contact(form: ContactForm):
     save_lead(lead_entry)
     
     # 2. Prepare Telegram notification text
-    text = (f"🔥 <b>Новая заявка с сайта!</b>\n\n"
+    text = (f"🔥 <b>Новая заявка с сайта LESNIKOVFOTO!</b>\n\n"
             f"👤 <b>Имя:</b> {form.name}\n"
             f"📞 <b>Телефон:</b> {form.phone}\n")
     if form.email:
         text += f"✉️ <b>Email:</b> {form.email}\n"
     if form.message:
         text += f"💬 <b>Сообщение:</b> {form.message}\n"
+    text += f"\n🕒 <i>{now_str} (IP: {client_ip})</i>"
     
     # 3. Fire-and-forget background task for Telegram delivery
     asyncio.create_task(send_telegram_notifications(text, lead_id))
     
-    # 4. Instant HTTP 200 response to client
+    # 4. Fire-and-forget background task for Email notification (if SMTP is configured)
+    html_body = f"""
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #f8fafc; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0;">
+      <h2 style="color: #0f172a; margin-top: 0; font-size: 20px; font-weight: 800;">🔥 Новая заявка с сайта LESNIKOVFOTO</h2>
+      <div style="background-color: #ffffff; padding: 18px; border-radius: 12px; border-left: 4px solid #0284c7; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <p style="font-size: 15px; margin: 0 0 10px 0;"><strong>👤 Имя:</strong> {form.name}</p>
+        <p style="font-size: 15px; margin: 0 0 10px 0;"><strong>📞 Телефон:</strong> <a href="tel:{form.phone}" style="color: #0284c7; font-weight: bold; text-decoration: none;">{form.phone}</a></p>
+        {f'<p style="font-size: 15px; margin: 0 0 10px 0;"><strong>✉️ Email:</strong> {form.email}</p>' if form.email else ''}
+        {f'<p style="font-size: 15px; margin: 10px 0 0 0; white-space: pre-wrap;"><strong>💬 Сообщение:</strong><br>{form.message}</p>' if form.message else ''}
+      </div>
+      <p style="font-size: 12px; color: #64748b; margin: 6px 0;"><strong>Дата:</strong> {now_str} &bull; <strong>IP:</strong> {client_ip}</p>
+    </div>
+    """
+    text_body = f"Новая заявка с сайта LESNIKOVFOTO:\n\nИмя: {form.name}\nТелефон: {form.phone}\nEmail: {form.email or 'Не указан'}\nСообщение: {form.message or 'Нет'}\n\nДата: {now_str} (IP: {client_ip})"
+
+    asyncio.create_task(asyncio.to_thread(
+        send_email_notification,
+        f"LESNIKOVFOTO: Заявка от {form.name} ({form.phone})",
+        text_body,
+        html_body
+    ))
+    
+    # 5. Instant HTTP 200 response to client
     return {
         "status": "ok", 
         "saved": True,
