@@ -10,10 +10,15 @@ export async function fetchSiteData() {
 }
 
 export async function submitContact(form: { name: string, phone: string, email: string, message: string }) {
-  const res = await fetch('/api/contact', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(form)
-  })
-  return res.ok
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form)
+    })
+    return res.ok
+  } catch (err) {
+    console.error('Failed to submit contact:', err)
+    return false
+  }
 }

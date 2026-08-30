@@ -167,19 +167,43 @@ def save_lead(lead_dict: dict):
     except Exception as e:
         logging.error(f"Error saving lead to file: {e}")
 
+async def send_telegram_notifications(text: str, lead_id: str):
+    if bot is None or not TELEGRAM_BOT_TOKEN or TELEGRAM_BOT_TOKEN.startswith("123456789:"):
+        return
+        
+    for admin_id in ADMIN_IDS:
+        if not admin_id:
+            continue
+        try:
+            # 5 second timeout per admin message to prevent any blocking
+            await asyncio.wait_for(
+                bot.send_message(chat_id=admin_id, text=text, parse_mode=ParseMode.HTML),
+                timeout=5.0
+            )
+            logging.info(f"✅ Lead {lead_id} successfully sent to Telegram admin: {admin_id}")
+        except asyncio.TimeoutError:
+            logging.warning(f"⏳ Timeout sending lead {lead_id} to admin {admin_id}")
+        except Exception as e:
+            # E.g. TelegramBadRequest / chat not found if user hasn't pressed /start yet
+            logging.warning(f"⚠️ Could not deliver lead to admin {admin_id} (bot not started or chat not found): {e}")
+
 @app.post("/api/contact")
 async def post_contact(form: ContactForm):
     timestamp_now = int(time.time())
+    lead_id = uuid.uuid4().hex[:10]
     lead_entry = {
-        "id": uuid.uuid4().hex[:10],
+        "id": lead_id,
         "created_at": timestamp_now,
         "name": form.name,
         "phone": form.phone,
         "email": form.email,
         "message": form.message,
-        "delivered_to": []
     }
     
+    # 1. Save lead to disk immediately (100% reliable, non-blocking)
+    save_lead(lead_entry)
+    
+    # 2. Prepare Telegram notification text
     text = (f"🔥 <b>Новая заявка с сайта!</b>\n\n"
             f"👤 <b>Имя:</b> {form.name}\n"
             f"📞 <b>Телефон:</b> {form.phone}\n")
@@ -188,27 +212,14 @@ async def post_contact(form: ContactForm):
     if form.message:
         text += f"💬 <b>Сообщение:</b> {form.message}\n"
     
-    delivered_admins = []
-    if bot is not None and TELEGRAM_BOT_TOKEN and not TELEGRAM_BOT_TOKEN.startswith("123456789:"):
-        for admin_id in ADMIN_IDS:
-            if not admin_id:
-                continue
-            try:
-                await bot.send_message(chat_id=admin_id, text=text, parse_mode=ParseMode.HTML)
-                delivered_admins.append(admin_id)
-                logging.info(f"✅ Lead successfully sent to Telegram admin: {admin_id}")
-            except Exception as e:
-                # E.g. TelegramBadRequest / chat not found if user hasn't pressed /start yet
-                logging.warning(f"⚠️ Could not deliver lead to admin {admin_id} (bot not started or chat not found): {e}")
-
-    lead_entry["delivered_to"] = delivered_admins
-    save_lead(lead_entry)
+    # 3. Fire-and-forget background task for Telegram delivery
+    asyncio.create_task(send_telegram_notifications(text, lead_id))
     
+    # 4. Instant HTTP 200 response to client
     return {
         "status": "ok", 
-        "delivered_count": len(delivered_admins),
-        "total_admins": len(ADMIN_IDS),
-        "saved": True
+        "saved": True,
+        "id": lead_id
     }
 
 # --- TMA ADMIN ENDPOINTS ---
