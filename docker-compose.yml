@@ -36,7 +36,7 @@ services:
       - backend
     restart: always
     ports:
-      - "80:80"
+      - "8091:80"
     networks:
       - app-net
 
