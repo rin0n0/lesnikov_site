@@ -1,4 +1,4 @@
-version: '3.8'
+name: lesnikov
 
 services:
   xray:
@@ -14,7 +14,7 @@ services:
     build: ./backend
     container_name: lesnikov_backend
     ports:
-      - "8000:8000"
+      - "8003:8000"
     restart: always
     env_file:
       - backend/.env
