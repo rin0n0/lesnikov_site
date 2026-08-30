@@ -12,7 +12,7 @@
         <img 
           :src="'/uploads/thumbs/' + img" 
           :alt="'Фото ' + (idx + 1)"
-          @error="(e) => (e.target as HTMLImageElement).src = '/uploads/' + img"
+          @error="handleImgError"
           class="w-full h-auto block object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out rounded-none"
           loading="lazy"
           decoding="async"
@@ -78,6 +78,16 @@ const hasMore = computed(() => {
 function loadMore() {
   if (hasMore.value) {
     visibleCount.value = Math.min(props.images.length, visibleCount.value + BATCH_SIZE)
+  }
+}
+
+function handleImgError(e: Event) {
+  const target = e.target as HTMLImageElement
+  if (target && !target.dataset.triedOriginal) {
+    target.dataset.triedOriginal = 'true'
+    const parts = target.src.split('/')
+    const filename = parts[parts.length - 1]
+    target.src = '/uploads/' + filename
   }
 }
 
