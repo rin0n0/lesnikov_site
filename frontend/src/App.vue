@@ -2,7 +2,7 @@
   <div class="min-h-screen flex flex-col selection:bg-gray-900 selection:text-white dark:selection:bg-white dark:selection:text-gray-900">
     
     <!-- Classic Full-Width 3D Liquid Crystal Header (Hidden in TMA Admin) -->
-    <header v-if="$route.path !== '/admin'" class="fixed top-0 inset-x-0 w-full z-50 liquid-glass transition-all">
+    <header v-if="$route.path !== '/admin'" class="fixed top-0 inset-x-0 w-full z-50 header-glass transition-all">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex justify-between items-center">
         <!-- Logo -->
         <router-link to="/" class="flex flex-col group">
