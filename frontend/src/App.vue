@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen flex flex-col relative selection:bg-gray-900 selection:text-white dark:selection:bg-white dark:selection:text-gray-900">
+    class="min-h-screen min-h-[100dvh] flex flex-col relative selection:bg-gray-900 selection:text-white dark:selection:bg-white dark:selection:text-gray-900">
 
     <!-- Ambient 3D Liquid Background (Original Hero Photo Blurred & Blended) -->
     <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden" aria-hidden="true">
@@ -13,7 +13,7 @@
 
     <!-- Liquid Crystal Glass Header (Single-tier on both Desktop & Mobile) -->
     <header v-if="$route.path !== '/admin'" class="fixed top-0 inset-x-0 w-full z-50 transition-all">
-      <div class="header-glass">
+      <div class="header-glass pt-[env(safe-area-inset-top,0px)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex justify-between items-center">
 
           <!-- Brand Logo with Geolocation -->

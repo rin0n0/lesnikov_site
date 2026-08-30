@@ -3,7 +3,7 @@
     <transition name="fade">
       <div 
         v-if="isOpen" 
-        class="fixed inset-0 z-[100] bg-black/95 flex flex-col justify-between p-4 md:p-8 backdrop-blur-sm select-none"
+        class="fixed inset-0 z-[100] bg-black/95 flex flex-col justify-between p-4 md:p-8 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-sm select-none"
         @click.self="close"
         @keydown.esc="close"
         @keydown.left="prev"
@@ -37,7 +37,7 @@
           <!-- Current Image -->
           <img 
             :src="'/uploads/' + currentImage" 
-            class="max-w-full max-h-[85vh] object-contain rounded-md shadow-2xl"
+            class="max-w-full max-h-[85vh] max-h-[85dvh] object-contain rounded-md shadow-2xl touch-none"
             :style="{ 
               transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
               transition: isDragging ? 'none' : 'transform 0.2s ease-out',

@@ -182,4 +182,40 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ==========================================================================
+   WebKit & iOS Safari Specific Optimizations
+   ========================================================================== */
+
+/* 1. Prevent iOS Safari Auto-Zoom on form focus */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* 2. Remove tap grey highlight on iOS */
+*, button, a, input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 3. Fix Safari Glass GPU rendering & prevent edge flicker */
+.header-glass,
+.glass-tile,
+.liquid-card {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* 4. Safe Area Insets for iOS Home Indicator and Notch */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
