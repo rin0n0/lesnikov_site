@@ -1,0 +1,11 @@
+﻿User-agent: *
+Allow: /
+Allow: /albums
+Allow: /photoshoots
+Allow: /contacts
+Allow: /uploads/
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://lesnikovfoto.rinnxx.ru/sitemap.xml
+Host: https://lesnikovfoto.rinnxx.ru
