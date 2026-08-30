@@ -217,6 +217,76 @@
             </div>
           </div>
         </div>
+
+        <!-- Albums Models & Options Editor -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300">
+              🎓 Модели выпускных альбомов и цены
+            </h3>
+            <span class="text-[10px] text-slate-500">По разворотам</span>
+          </div>
+
+          <!-- Category Selector -->
+          <div class="flex gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800">
+            <button 
+              v-for="cat in ['kindergarten', 'grade_4', 'grade_11']" 
+              :key="cat"
+              @click="selectedAlbumAdminCat = cat; triggerHaptic('selection')"
+              class="flex-1 py-1.5 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all"
+              :class="selectedAlbumAdminCat === cat ? 'bg-cyan-600 text-white shadow' : 'text-slate-400 hover:text-white'"
+            >
+              {{ cat === 'kindergarten' ? 'Детсад' : (cat === 'grade_4' ? '4 класс' : '9-11 класс') }}
+            </button>
+          </div>
+
+          <!-- Models List for Selected Category -->
+          <div class="space-y-3">
+            <div 
+              v-for="model in (siteData.albums?.[selectedAlbumAdminCat]?.models || [])" 
+              :key="model.id"
+              class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2.5"
+            >
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-bold text-white truncate">{{ model.name }}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400 font-mono font-bold">{{ model.num }}</span>
+              </div>
+
+              <!-- Base Price Input -->
+              <div class="flex items-center justify-between gap-2 text-xs">
+                <span class="text-[11px] text-slate-400">Базовая цена (₽):</span>
+                <input 
+                  type="number" 
+                  v-model.number="model.price"
+                  class="w-24 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-right text-xs font-bold text-cyan-400 focus:outline-none focus:border-cyan-500"
+                />
+              </div>
+
+              <!-- Spread Options Inputs -->
+              <div v-if="model.spread_options && model.spread_options.length" class="space-y-1.5 pt-1.5 border-t border-slate-900">
+                <div class="text-[10px] text-slate-500 font-semibold uppercase">Цены по разворотам (₽):</div>
+                <div class="grid grid-cols-3 gap-1.5">
+                  <div v-for="opt in model.spread_options" :key="opt.spreads" class="bg-slate-900 p-1.5 rounded-lg border border-slate-800 text-center">
+                    <div class="text-[10px] text-slate-400">{{ opt.spreads }} разв.</div>
+                    <input 
+                      type="number" 
+                      v-model.number="opt.price"
+                      class="w-full bg-transparent text-center text-[11px] font-bold text-emerald-400 focus:outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button 
+              @click="saveAlbumModels(selectedAlbumAdminCat)"
+              class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 active:scale-98 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+            >
+              <span>💾</span>
+              <span>Сохранить изменения альбомов</span>
+            </button>
+          </div>
+        </div>
       </div>
     </main>
 
@@ -235,6 +305,7 @@ import { ref, computed, onMounted, reactive } from 'vue'
 
 const activeSection = ref<'photos' | 'prices'>('photos')
 const selectedCategoryKey = ref('home:hero')
+const selectedAlbumAdminCat = ref('kindergarten')
 const loading = ref(true)
 const uploading = ref(false)
 const toastMsg = ref('')
@@ -474,6 +545,36 @@ async function saveShootPrice(category_id: string, price: string) {
     }
   } catch (e) {
     console.error(e)
+  }
+}
+
+async function saveAlbumModels(catId: string) {
+  triggerHaptic('impact', 'medium')
+  try {
+    const models = siteData.value.albums?.[catId]?.models || []
+    const res = await fetch('/api/admin/prices', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-telegram-init-data': getTelegramInitData()
+      },
+      body: JSON.stringify({
+        category_type: 'albums',
+        category_id: catId,
+        models: models
+      })
+    })
+
+    if (res.ok) {
+      triggerHaptic('notification', 'success')
+      showToast('✅ Модели и цены сохранены!')
+    } else {
+      triggerHaptic('notification', 'error')
+      showToast('❌ Ошибка при сохранении')
+    }
+  } catch (e) {
+    console.error(e)
+    showToast('❌ Ошибка сети')
   }
 }
 

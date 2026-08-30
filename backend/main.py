@@ -161,6 +161,7 @@ class UpdatePricesRequest(BaseModel):
     category_id: str   # 'kindergarten', 'grade_4', 'wedding', etc.
     price: str = ""    # For photoshoots hourly price
     items: list = []   # For albums packages
+    models: list = []  # For album models with spreads and descriptions
 
 @app.post("/api/admin/prices")
 async def admin_update_prices(req: UpdatePricesRequest, user = Depends(verify_telegram_init_data)):
@@ -170,7 +171,10 @@ async def admin_update_prices(req: UpdatePricesRequest, user = Depends(verify_te
         if req.category_type == 'photoshoots':
             target['price'] = str(req.price)
         elif req.category_type == 'albums':
-            target['items'] = req.items
+            if req.items:
+                target['items'] = req.items
+            if req.models:
+                target['models'] = req.models
         save_data(data)
         return {"status": "ok", "data": data}
     raise HTTPException(status_code=400, detail="Invalid category")

@@ -18,14 +18,14 @@
         <div class="mt-6 pt-4 border-t border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
           <div>
             <div class="text-[10px] uppercase tracking-wider text-gray-400">Стоимость</div>
-            <div class="text-2xl font-black text-gray-900 dark:text-white">
+            <div class="text-2xl font-black text-gray-900 dark:text-white font-mono">
               {{ item.price.toLocaleString('ru-RU') }} ₽
             </div>
           </div>
           
           <router-link 
-            to="/contacts"
-            class="bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-all shadow-sm"
+            :to="{ path: '/contacts', query: { subject: (categoryTitle ? categoryTitle + ': ' : '') + item.name } }"
+            class="bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-all shadow-sm active:scale-95"
           >
             Заказать
           </router-link>
@@ -36,21 +36,26 @@
   
   <div 
     v-else-if="singlePrice" 
-    class="mb-10 p-6 sm:p-8 rounded-2xl liquid-card flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm"
+    class="mb-10 p-6 sm:p-8 rounded-3xl liquid-card flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-md border border-white/60 dark:border-white/10"
   >
-    <div>
-      <div class="text-xs uppercase tracking-wider text-gray-400 font-semibold">Фиксированная стоимость</div>
-      <div class="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mt-1">
+    <div class="space-y-2">
+      <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-[11px] font-extrabold uppercase tracking-wider">
+        <span>●</span>
+        <span>Фиксированная ставка</span>
+      </div>
+      <div class="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white font-mono">
         {{ Number(singlePrice).toLocaleString('ru-RU') }} ₽ <span class="text-base font-normal text-gray-400">/ час</span>
       </div>
-      <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-        Включает консультацию, съемку и авторскую обработку всех удачных кадров
+      <div class="text-xs text-gray-600 dark:text-gray-300 flex flex-wrap gap-x-4 gap-y-1 pt-1">
+        <span>✓ Консультация и помощь с позированием</span>
+        <span>✓ Авторская цветокоррекция всех удачных кадров</span>
+        <span>✓ Передача через удобную онлайн-галерею</span>
       </div>
     </div>
     
     <router-link 
-      to="/contacts"
-      class="bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-7 py-3.5 rounded-xl font-bold hover:opacity-90 transition-all shadow-sm w-full sm:w-auto text-center text-xs uppercase tracking-wider"
+      :to="{ path: '/contacts', query: { subject: categoryTitle ? categoryTitle + ' фотосессия' : 'Фотосессия' } }"
+      class="bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-8 py-4 rounded-2xl font-bold hover:opacity-90 transition-all shadow-lg w-full md:w-auto text-center text-xs uppercase tracking-widest active:scale-95 shrink-0"
     >
       Забронировать дату
     </router-link>
@@ -61,5 +66,6 @@
 defineProps<{
   items?: Array<{ name: string; price: number }>
   singlePrice?: string | number
+  categoryTitle?: string
 }>()
 </script>
