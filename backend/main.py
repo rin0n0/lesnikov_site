@@ -297,13 +297,7 @@ async def cmd_start(message: types.Message):
     user_id = str(message.from_user.id)
     if user_id not in ADMIN_IDS:
         return await message.answer("Доступ закрыт.")
-    
-    kb = types.InlineKeyboardMarkup(inline_keyboard=[[
-        types.InlineKeyboardButton(
-            text="⚡️ Открыть панель управления",
-            web_app=types.WebAppInfo(url="https://lesnikovfoto.rinnxx.ru/admin")
-        )
-    ]])
+
     await message.answer(
         "👋 <b>Привет, Владимир!</b>\n\n"
         "Вы можете управлять сайтом прямо здесь через Telegram Mini App: поворачивать фотографии, менять цены, добавлять/удалять кадры и поднимать удачные фото выше.",
