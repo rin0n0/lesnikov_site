@@ -147,8 +147,39 @@ class ContactForm(BaseModel):
     email: str = ""
     message: str = ""
 
+LEADS_FILE = os.path.join(os.path.dirname(__file__), "data", "leads.json")
+
+def save_lead(lead_dict: dict):
+    leads = []
+    try:
+        if os.path.exists(LEADS_FILE):
+            with open(LEADS_FILE, "r", encoding="utf-8") as f:
+                leads = json.load(f)
+    except Exception as e:
+        logging.error(f"Error reading leads file: {e}")
+        leads = []
+        
+    leads.insert(0, lead_dict)
+    
+    try:
+        with open(LEADS_FILE, "w", encoding="utf-8") as f:
+            json.dump(leads, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        logging.error(f"Error saving lead to file: {e}")
+
 @app.post("/api/contact")
 async def post_contact(form: ContactForm):
+    timestamp_now = int(time.time())
+    lead_entry = {
+        "id": uuid.uuid4().hex[:10],
+        "created_at": timestamp_now,
+        "name": form.name,
+        "phone": form.phone,
+        "email": form.email,
+        "message": form.message,
+        "delivered_to": []
+    }
+    
     text = (f"🔥 <b>Новая заявка с сайта!</b>\n\n"
             f"👤 <b>Имя:</b> {form.name}\n"
             f"📞 <b>Телефон:</b> {form.phone}\n")
@@ -157,14 +188,28 @@ async def post_contact(form: ContactForm):
     if form.message:
         text += f"💬 <b>Сообщение:</b> {form.message}\n"
     
-    if TELEGRAM_BOT_TOKEN != "123456789:AABBCCDD_abcdefgh":
+    delivered_admins = []
+    if bot is not None and TELEGRAM_BOT_TOKEN and not TELEGRAM_BOT_TOKEN.startswith("123456789:"):
         for admin_id in ADMIN_IDS:
+            if not admin_id:
+                continue
             try:
                 await bot.send_message(chat_id=admin_id, text=text, parse_mode=ParseMode.HTML)
+                delivered_admins.append(admin_id)
+                logging.info(f"✅ Lead successfully sent to Telegram admin: {admin_id}")
             except Exception as e:
-                logging.error(f"Failed to send telegram msg to {admin_id}: {e}")
+                # E.g. TelegramBadRequest / chat not found if user hasn't pressed /start yet
+                logging.warning(f"⚠️ Could not deliver lead to admin {admin_id} (bot not started or chat not found): {e}")
+
+    lead_entry["delivered_to"] = delivered_admins
+    save_lead(lead_entry)
     
-    return {"status": "ok"}
+    return {
+        "status": "ok", 
+        "delivered_count": len(delivered_admins),
+        "total_admins": len(ADMIN_IDS),
+        "saved": True
+    }
 
 # --- TMA ADMIN ENDPOINTS ---
 
