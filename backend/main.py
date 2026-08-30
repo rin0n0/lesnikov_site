@@ -182,7 +182,10 @@ def verify_telegram_init_data(x_telegram_init_data: str = Header(None)):
 
 @app.get("/api/data")
 async def get_data():
-    return load_data()
+    return JSONResponse(
+        content=load_data(),
+        headers={"Cache-Control": "public, max-age=60, s-maxage=300, stale-while-revalidate=600"}
+    )
 
 class ContactForm(BaseModel):
     name: str

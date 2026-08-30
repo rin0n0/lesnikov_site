@@ -102,7 +102,15 @@
       }
     }
     </script>
-    <!-- Theme Detection & Synchronization -->
+    <!-- Preconnect & Asynchronous Fonts (Non-blocking) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" />
+    </noscript>
+
+    <!-- Theme Detection & Synchronization (Instant Inline Script) -->
     <script>
       (function() {
         const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -120,8 +128,8 @@
         }
       })();
     </script>
-    <!-- Telegram WebApp SDK -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Telegram WebApp SDK (Deferred - Never blocks regular browser page load) -->
+    <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body>
     <div id="app"></div>
