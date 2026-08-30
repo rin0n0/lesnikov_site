@@ -30,15 +30,20 @@ jobs:
             mkdir -p "$PROJECT_DIR"
             cd "$PROJECT_DIR"
 
-            # Проверяем git репозиторий
+            # Инициализируем git, если еще не инициализирован
             if [ ! -d ".git" ]; then
-              echo "Cloning repository..."
-              git clone https://github.com/${{ github.repository }}.git .
+              echo "Initializing Git repository..."
+              git init -b main
+              git remote add origin https://github.com/${{ github.repository }}.git || git remote set-url origin https://github.com/${{ github.repository }}.git
             else
-              echo "Pulling latest changes from main..."
-              git fetch --all
-              git reset --hard origin/main
+              git remote set-url origin https://github.com/${{ github.repository }}.git
             fi
+
+            # Жестко синхронизируем с origin/main
+            echo "Fetching and synchronizing with origin/main..."
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fd
 
             # Генерируем backend/.env
             echo "Creating backend/.env..."
@@ -47,7 +52,7 @@ jobs:
             TELEGRAM_ADMIN_ID=${{ secrets.TELEGRAM_ADMIN_ID }}
             EOF
 
-            # Пересобираем контейнеры начисто (без кэша для гарантии свежей верстки)
+            # Пересобираем контейнеры начисто
             echo "Building containers with no-cache..."
             docker compose build --no-cache
 
