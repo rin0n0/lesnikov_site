@@ -2,13 +2,11 @@
   <div
     class="min-h-screen min-h-[100dvh] flex flex-col relative selection:bg-gray-900 selection:text-white dark:selection:bg-white dark:selection:text-gray-900">
 
-    <!-- Ambient 3D Liquid Background (Original Hero Photo Blurred & Blended) -->
+    <!-- Ambient 3D Liquid Background (Pure CSS Mesh - 0 KB Network Overhead) -->
     <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden" aria-hidden="true">
-      <img src="/bg.jpg" alt=""
-        class="w-full h-full object-cover blur-[80px] scale-110 opacity-25 dark:opacity-15 transform-gpu filter" />
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/92 to-slate-50 dark:from-[#080c14]/85 dark:via-[#080c14]/94 dark:to-[#080c14]">
-      </div>
+      <div class="absolute -top-[15%] left-1/2 -translate-x-1/2 w-[1100px] h-[600px] bg-gradient-to-b from-cyan-500/10 via-blue-500/5 to-transparent rounded-full blur-[120px] dark:from-cyan-500/15 dark:via-blue-600/10 transform-gpu"></div>
+      <div class="absolute bottom-0 right-0 w-[700px] h-[550px] bg-gradient-to-t from-slate-200/40 via-transparent to-transparent dark:from-slate-800/20 rounded-full blur-[100px] transform-gpu"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/92 to-slate-50 dark:from-[#080c14]/85 dark:via-[#080c14]/94 dark:to-[#080c14]"></div>
     </div>
 
     <!-- Liquid Crystal Glass Header (Single-tier on both Desktop & Mobile) -->
@@ -29,34 +27,52 @@
           </router-link>
 
           <!-- Desktop Navigation Bar -->
-          <nav class="hidden md:flex items-center gap-1 sm:gap-2 text-xs uppercase tracking-wider font-semibold">
+          <nav class="hidden md:flex items-center gap-1 p-1 rounded-2xl liquid-card">
             <router-link to="/"
-              class="px-4 py-2 rounded-xl transition-all text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"
-              active-class="bg-gray-900/10 dark:bg-white/15 text-gray-900 dark:text-white font-bold">
+              class="px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200"
+              :class="[
+                $route.path === '/'
+                  ? 'liquid-btn-active font-extrabold shadow-sm'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+              ]">
               Главная
             </router-link>
+
             <router-link to="/albums"
-              class="px-4 py-2 rounded-xl transition-all text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"
-              active-class="bg-gray-900/10 dark:bg-white/15 text-gray-900 dark:text-white font-bold">
+              class="px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200"
+              :class="[
+                $route.path.startsWith('/albums')
+                  ? 'liquid-btn-active font-extrabold shadow-sm'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+              ]">
               Выпускные альбомы
             </router-link>
+
             <router-link to="/photoshoots"
-              class="px-4 py-2 rounded-xl transition-all text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"
-              active-class="bg-gray-900/10 dark:bg-white/15 text-gray-900 dark:text-white font-bold">
+              class="px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200"
+              :class="[
+                $route.path.startsWith('/photoshoots')
+                  ? 'liquid-btn-active font-extrabold shadow-sm'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+              ]">
               Фотосессии
             </router-link>
+
             <router-link to="/contacts"
-              class="px-4 py-2 rounded-xl transition-all text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"
-              active-class="bg-gray-900/10 dark:bg-white/15 text-gray-900 dark:text-white font-bold">
+              class="px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200"
+              :class="[
+                $route.path === '/contacts'
+                  ? 'liquid-btn-active font-extrabold shadow-sm'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+              ]">
               Контакты
             </router-link>
           </nav>
 
-          <!-- Right Action Elements -->
-          <div class="flex items-center gap-2 sm:gap-3">
-            <!-- Mobile Hamburger Toggle Button -->
+          <!-- Right Action / Mobile Hamburger Toggle -->
+          <div class="flex items-center gap-3">
             <button @click="mobileMenuOpen = !mobileMenuOpen"
-              class="md:hidden w-10 h-10 rounded-xl liquid-card flex items-center justify-center text-gray-800 dark:text-white transition-all active:scale-90"
+              class="md:hidden w-10 h-10 rounded-2xl flex items-center justify-center liquid-card text-gray-900 dark:text-white active:scale-95 transition-all"
               :aria-label="mobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'">
               <span v-if="!mobileMenuOpen" class="text-lg leading-none flex items-center justify-center">
                 <AppIcon name="menu" :size="20" />
@@ -71,23 +87,17 @@
 
     </header>
 
-    <!-- Mobile 3D Liquid Glass Floating Island Modal (Полноэкранная модалка с островком по центру) -->
+    <!-- Mobile 3D Liquid Glass Floating Island Modal -->
     <Teleport to="body">
       <transition name="modal-fade">
         <div v-if="mobileMenuOpen"
           class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 glass-backdrop transition-all select-none"
           @click.self="closeMobileMenu" @keydown.esc="closeMobileMenu">
-          <!-- Floating Glass Tile (Стеклянная плитка с объёмом) -->
           <div class="glass-tile w-full max-w-xs sm:max-w-sm rounded-[28px] p-6 sm:p-7 space-y-5 relative">
-            <!-- Tile Header -->
             <div class="flex items-center justify-between pb-3 border-b border-black/10 dark:border-white/10">
-              <div class="flex flex-col">
-                <span class="text-xs sm:text-sm font-black tracking-widest uppercase text-gray-900 dark:text-white">
-                  LESNIKOVFOTO
-                </span>
-              </div>
-
-              <!-- Close Button -->
+              <span class="text-xs sm:text-sm font-black tracking-widest uppercase text-gray-900 dark:text-white">
+                LESNIKOVFOTO
+              </span>
               <button @click="closeMobileMenu"
                 class="w-8 h-8 rounded-full flex items-center justify-center text-gray-900 dark:text-white bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 active:scale-90 transition-all border border-black/10 dark:border-white/20 shadow-sm"
                 aria-label="Закрыть меню">
@@ -95,54 +105,36 @@
               </button>
             </div>
 
-            <!-- Navigation Links -->
             <nav class="flex flex-col gap-2">
               <router-link to="/" @click="closeMobileMenu"
                 class="flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-extrabold uppercase tracking-wider transition-all duration-200"
-                :class="[
-                  $route.path === '/'
-                    ? 'liquid-btn-active font-black shadow-md'
-                    : 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10'
-                ]">
+                :class="[$route.path === '/' ? 'liquid-btn-active font-black shadow-md' : 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10']">
                 <span>Главная</span>
                 <span class="text-xs opacity-60">→</span>
               </router-link>
 
               <router-link to="/albums" @click="closeMobileMenu"
                 class="flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-extrabold uppercase tracking-wider transition-all duration-200"
-                :class="[
-                  $route.path.startsWith('/albums')
-                    ? 'liquid-btn-active font-black shadow-md'
-                    : 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10'
-                ]">
+                :class="[$route.path.startsWith('/albums') ? 'liquid-btn-active font-black shadow-md' : 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10']">
                 <span>Выпускные альбомы</span>
                 <span class="text-xs opacity-60">→</span>
               </router-link>
 
               <router-link to="/photoshoots" @click="closeMobileMenu"
                 class="flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-extrabold uppercase tracking-wider transition-all duration-200"
-                :class="[
-                  $route.path.startsWith('/photoshoots')
-                    ? 'liquid-btn-active font-black shadow-md'
-                    : 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10'
-                ]">
+                :class="[$route.path.startsWith('/photoshoots') ? 'liquid-btn-active font-black shadow-md' : 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10']">
                 <span>Фотосессии</span>
                 <span class="text-xs opacity-60">→</span>
               </router-link>
 
               <router-link to="/contacts" @click="closeMobileMenu"
                 class="flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-extrabold uppercase tracking-wider transition-all duration-200"
-                :class="[
-                  $route.path === '/contacts'
-                    ? 'liquid-btn-active font-black shadow-md'
-                    : 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10'
-                ]">
+                :class="[$route.path === '/contacts' ? 'liquid-btn-active font-black shadow-md' : 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10']">
                 <span>Контакты</span>
                 <span class="text-xs opacity-60">→</span>
               </router-link>
             </nav>
 
-            <!-- Minimal Action -->
             <div class="pt-2 border-t border-black/10 dark:border-white/10">
               <router-link to="/contacts" @click="closeMobileMenu"
                 class="w-full py-3.5 bg-gray-900 text-white dark:bg-white dark:text-gray-900 rounded-2xl text-xs font-black uppercase tracking-widest text-center block shadow-lg hover:opacity-90 active:scale-98 transition-all">
@@ -163,9 +155,24 @@
       </router-view>
     </main>
 
+    <!-- Centered 3D Liquid Glass Island Back-to-Top -->
+    <div v-if="$route.path !== '/admin'" class="w-full flex justify-center px-4 mt-16 mb-[-2rem] relative z-20">
+      <button
+        @click="scrollToTop"
+        class="glass-tile inline-flex items-center gap-3 px-8 py-3.5 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 group cursor-pointer select-none"
+        title="Наверх"
+        aria-label="Прокрутить страницу наверх"
+      >
+        <AppIcon name="arrow-up" :size="16" class="transition-transform duration-300 group-hover:-translate-y-1 text-gray-900 dark:text-white" />
+        <span class="text-xs font-black uppercase tracking-widest text-gray-900 dark:text-white">
+          Наверх
+        </span>
+      </button>
+    </div>
+
     <!-- Classic Glass Footer -->
     <footer v-if="$route.path !== '/admin'"
-      class="mt-28 border-t border-gray-200/80 dark:border-gray-800/80 bg-white/60 dark:bg-gray-950/60 backdrop-blur-xl">
+      class="mt-20 border-t border-gray-200/80 dark:border-gray-800/80 bg-white/60 dark:bg-gray-950/60 backdrop-blur-xl">
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-gray-500 dark:text-gray-400">
         <div class="text-center md:text-left">
@@ -193,14 +200,6 @@
           <router-link to="/contacts" class="hover:text-gray-900 dark:hover:text-white transition-colors">
             Оставить заявку
           </router-link>
-          <button 
-            @click="scrollToTop" 
-            class="flex items-center gap-1 hover:text-gray-900 dark:hover:text-white transition-colors text-[11px] font-bold uppercase tracking-wider cursor-pointer"
-            title="Прокрутить в начало страницы"
-          >
-            <AppIcon name="arrow-up" :size="14" />
-            <span>Наверх</span>
-          </button>
         </div>
 
         <div class="text-[11px]">
@@ -208,29 +207,14 @@
         </div>
       </div>
     </footer>
-
-    <!-- Floating Liquid Glass Back to Top Button (Появляется при прокрутке вниз) -->
-    <transition name="fade">
-      <button
-        v-if="showBackToTop && $route.path !== '/admin'"
-        @click="scrollToTop"
-        class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 p-3.5 sm:px-4 sm:py-3 rounded-2xl glass-tile shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 text-xs font-black uppercase tracking-wider text-gray-900 dark:text-white group border border-black/10 dark:border-white/15 cursor-pointer"
-        title="Наверх"
-        aria-label="Прокрутить наверх"
-      >
-        <AppIcon name="arrow-up" :size="16" class="transition-transform group-hover:-translate-y-0.5" />
-        <span class="hidden sm:inline">Наверх</span>
-      </button>
-    </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref } from 'vue'
 import AppIcon from './components/AppIcon.vue'
 
 const mobileMenuOpen = ref(false)
-const showBackToTop = ref(false)
 
 function closeMobileMenu() {
   mobileMenuOpen.value = false
@@ -244,24 +228,6 @@ function scrollToTop() {
     })
   }
 }
-
-function handleScroll() {
-  if (typeof window !== 'undefined') {
-    showBackToTop.value = window.scrollY > 350
-  }
-}
-
-onMounted(() => {
-  if (typeof window !== 'undefined') {
-    window.addEventListener('scroll', handleScroll, { passive: true })
-  }
-})
-
-onBeforeUnmount(() => {
-  if (typeof window !== 'undefined') {
-    window.removeEventListener('scroll', handleScroll)
-  }
-})
 </script>
 
 <style>
