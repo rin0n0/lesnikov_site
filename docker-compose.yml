@@ -19,8 +19,6 @@ services:
     env_file:
       - backend/.env
     environment:
-      - HTTP_PROXY=http://xray:10809
-      - HTTPS_PROXY=http://xray:10809
       - PROXY_URL=http://xray:10809
     volumes:
       - ./backend/data:/app/data
