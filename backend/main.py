@@ -66,8 +66,9 @@ app.add_middleware(
 # Custom dynamic thumbnails endpoint with on-the-fly caching
 @app.get("/uploads/thumbs/{filename}")
 async def get_thumbnail(filename: str):
-    thumb_path = os.path.join(THUMBS_DIR, filename)
-    orig_path = os.path.join(UPLOADS_DIR, filename)
+    clean_filename = os.path.basename(filename)
+    thumb_path = os.path.join(THUMBS_DIR, clean_filename)
+    orig_path = os.path.join(UPLOADS_DIR, clean_filename)
     
     if not os.path.exists(thumb_path):
         if os.path.exists(orig_path):
@@ -90,34 +91,49 @@ if TELEGRAM_BOT_TOKEN and not TELEGRAM_BOT_TOKEN.startswith("123456789:"):
 
 # --- TMA AUTH HELPER ---
 def verify_telegram_init_data(x_telegram_init_data: str = Header(None)):
-    if not x_telegram_init_data or TELEGRAM_BOT_TOKEN.startswith("123456789:"):
-        return {"id": ADMIN_IDS[0] if ADMIN_IDS else "12345678", "username": "admin", "first_name": "Владимир"}
+    if not x_telegram_init_data:
+        raise HTTPException(
+            status_code=401, 
+            detail="Доступ запрещён: Панель управления доступна исключительно через Telegram Mini App."
+        )
+    
+    if not TELEGRAM_BOT_TOKEN or TELEGRAM_BOT_TOKEN.startswith("123456789:"):
+        raise HTTPException(status_code=500, detail="Ошибка конфигурации: TELEGRAM_BOT_TOKEN не задан.")
     
     try:
-        parsed = dict(urllib.parse.parse_qsl(x_telegram_init_data))
+        parsed = dict(urllib.parse.parse_qsl(x_telegram_init_data, keep_blank_values=True))
         if 'hash' not in parsed:
-            raise HTTPException(status_code=401, detail="Missing hash in initData")
+            raise HTTPException(status_code=401, detail="Недействительные данные Telegram: отсутствует hash.")
             
         received_hash = parsed.pop('hash')
         data_check_string = '\n'.join(f"{k}={v}" for k, v in sorted(parsed.items()))
-        secret_key = hmac.new(b"WebAppData", TELEGRAM_BOT_TOKEN.encode(), hashlib.sha256).digest()
-        calculated_hash = hmac.new(secret_key, data_check_string.encode(), hashlib.sha256).hexdigest()
+        secret_key = hmac.new(b"WebAppData", TELEGRAM_BOT_TOKEN.encode('utf-8'), hashlib.sha256).digest()
+        calculated_hash = hmac.new(secret_key, data_check_string.encode('utf-8'), hashlib.sha256).hexdigest()
         
-        if calculated_hash != received_hash:
-            raise HTTPException(status_code=401, detail="Invalid HMAC hash")
+        if not hmac.compare_digest(calculated_hash, received_hash):
+            raise HTTPException(status_code=401, detail="Криптографическая подпись Telegram HMAC-SHA256 не совпадает.")
             
+        # Replay protection (valid for 48 hours)
+        if 'auth_date' in parsed:
+            try:
+                auth_date = int(parsed['auth_date'])
+                if time.time() - auth_date > 86400 * 2:
+                    raise HTTPException(status_code=401, detail="Срок действия Telegram-сессии истёк.")
+            except ValueError:
+                pass
+
         user_data = json.loads(parsed.get('user', '{}'))
         user_id = str(user_data.get('id', ''))
         
-        if user_id not in ADMIN_IDS:
-            raise HTTPException(status_code=403, detail="User is not authorized as Admin")
+        if not user_id or user_id not in ADMIN_IDS:
+            raise HTTPException(status_code=403, detail="Ваш Telegram ID отсутствует в списке администраторов.")
             
         return user_data
     except HTTPException:
         raise
     except Exception as e:
         logging.error(f"Auth error: {e}")
-        raise HTTPException(status_code=401, detail="Authentication failed")
+        raise HTTPException(status_code=401, detail="Ошибка проверки Telegram авторизации.")
 
 # --- PUBLIC ENDPOINTS ---
 
@@ -221,14 +237,15 @@ class PhotoActionRequest(BaseModel):
 async def admin_delete_photo(req: PhotoActionRequest, user = Depends(verify_telegram_init_data)):
     data = load_data()
     images_list = None
+    clean_filename = os.path.basename(req.filename)
     
     if req.category_type == 'home':
         images_list = data['home']['hero_images']
     elif req.category_type in data and req.category_id in data[req.category_type]:
         images_list = data[req.category_type][req.category_id].get('images', [])
         
-    if images_list is not None and req.filename in images_list:
-        images_list.remove(req.filename)
+    if images_list is not None and clean_filename in images_list:
+        images_list.remove(clean_filename)
         save_data(data)
         return {"status": "ok", "data": data}
         
@@ -238,14 +255,15 @@ async def admin_delete_photo(req: PhotoActionRequest, user = Depends(verify_tele
 async def admin_reorder_photo(req: PhotoActionRequest, user = Depends(verify_telegram_init_data)):
     data = load_data()
     images_list = None
+    clean_filename = os.path.basename(req.filename)
     
     if req.category_type == 'home':
         images_list = data['home']['hero_images']
     elif req.category_type in data and req.category_id in data[req.category_type]:
         images_list = data[req.category_type][req.category_id].get('images', [])
         
-    if images_list is not None and req.filename in images_list:
-        idx = images_list.index(req.filename)
+    if images_list is not None and clean_filename in images_list:
+        idx = images_list.index(clean_filename)
         if req.direction == 'up' and idx > 0:
             images_list[idx], images_list[idx - 1] = images_list[idx - 1], images_list[idx]
         elif req.direction == 'down' and idx < len(images_list) - 1:
@@ -264,8 +282,9 @@ class RotatePhotoRequest(BaseModel):
 
 @app.post("/api/admin/photos/rotate")
 async def admin_rotate_photo(req: RotatePhotoRequest, user = Depends(verify_telegram_init_data)):
-    fpath = os.path.join(UPLOADS_DIR, req.filename)
-    thumbpath = os.path.join(THUMBS_DIR, req.filename)
+    clean_filename = os.path.basename(req.filename)
+    fpath = os.path.join(UPLOADS_DIR, clean_filename)
+    thumbpath = os.path.join(THUMBS_DIR, clean_filename)
     
     if not os.path.exists(fpath):
         raise HTTPException(status_code=404, detail="Photo not found")
@@ -290,6 +309,21 @@ async def admin_rotate_photo(req: RotatePhotoRequest, user = Depends(verify_tele
         logging.error(f"Rotation error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+# TMA URL & Inline Keyboard
+TMA_URL = os.getenv("TMA_URL", "https://lesnikovfoto.rinnxx.ru/admin")
+
+def get_admin_keyboard():
+    return types.InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                types.InlineKeyboardButton(
+                    text="🚀 Открыть панель управления",
+                    web_app=types.WebAppInfo(url=TMA_URL)
+                )
+            ]
+        ]
+    )
+
 # --- BOT COMMANDS ---
 
 @dp.message(Command("start"))
@@ -301,7 +335,7 @@ async def cmd_start(message: types.Message):
     await message.answer(
         "👋 <b>Привет, Владимир!</b>\n\n"
         "Вы можете управлять сайтом прямо здесь через Telegram Mini App: поворачивать фотографии, менять цены, добавлять/удалять кадры и поднимать удачные фото выше.",
-        reply_markup=kb,
+        reply_markup=get_admin_keyboard(),
         parse_mode=ParseMode.HTML
     )
 

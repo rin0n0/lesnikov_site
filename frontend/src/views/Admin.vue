@@ -1,5 +1,42 @@
 <template>
-  <div class="min-h-screen bg-slate-950 text-slate-100 font-sans pb-24 select-none">
+  <!-- Unauthorized / Browser Access Barrier Screen (Защита: вход только через Telegram) -->
+  <div v-if="!isAuthorized && !loading" class="min-h-screen flex items-center justify-center p-6 select-none">
+    <div class="max-w-sm w-full glass-tile rounded-[28px] p-8 text-center space-y-6 shadow-2xl">
+      <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mx-auto text-2xl shadow-inner">
+        <AppIcon name="close" :size="26" />
+      </div>
+
+      <div class="space-y-2">
+        <h1 class="text-xl font-black uppercase tracking-tight text-gray-900 dark:text-white">
+          Доступ закрыт
+        </h1>
+        <p class="text-xs text-slate-600 dark:text-slate-300 font-semibold leading-relaxed">
+          Панель управления защищена криптографической подписью Telegram и доступна исключительно внутри официального Telegram Mini App фотографа.
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-2">
+        <a 
+          href="https://t.me/lesnikovfoto_bot" 
+          target="_blank"
+          class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-black text-xs uppercase tracking-widest rounded-2xl shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-all"
+        >
+          <span>Открыть бота в Telegram</span>
+          <span>→</span>
+        </a>
+
+        <router-link 
+          to="/"
+          class="w-full py-3 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-gray-900 dark:text-white font-black text-xs uppercase tracking-wider rounded-2xl border border-black/10 dark:border-white/15 block active:scale-95 transition-all"
+        >
+          Вернуться на сайт
+        </router-link>
+      </div>
+    </div>
+  </div>
+
+  <!-- Authorized TMA Admin Screen (Только для верифицированного администратора) -->
+  <div v-else class="min-h-screen bg-slate-950 text-slate-100 font-sans pb-24 select-none">
     <!-- Top Header -->
     <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-3.5 flex items-center justify-between shadow-sm">
       <div class="flex items-center gap-3">
@@ -302,11 +339,13 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, reactive } from 'vue'
+import AppIcon from '../components/AppIcon.vue'
 
 const activeSection = ref<'photos' | 'prices'>('photos')
 const selectedCategoryKey = ref('home:hero')
 const selectedAlbumAdminCat = ref('kindergarten')
 const loading = ref(true)
+const isAuthorized = ref(false)
 const uploading = ref(false)
 const toastMsg = ref('')
 const fileInput = ref<HTMLInputElement | null>(null)
@@ -363,20 +402,31 @@ const currentCategoryImages = computed(() => {
 })
 
 async function refreshData() {
+  const initData = getTelegramInitData()
+  if (!initData) {
+    isAuthorized.value = false
+    loading.value = false
+    return
+  }
+
   triggerHaptic('impact', 'medium')
   loading.value = true
   try {
     const res = await fetch('/api/admin/data', {
       headers: {
-        'x-telegram-init-data': getTelegramInitData()
+        'x-telegram-init-data': initData
       }
     })
     if (res.ok) {
       siteData.value = await res.json()
       globalCacheBuster.value = Date.now()
+      isAuthorized.value = true
+    } else {
+      isAuthorized.value = false
     }
   } catch (e) {
     console.error(e)
+    isAuthorized.value = false
   } finally {
     loading.value = false
   }
@@ -579,6 +629,13 @@ async function saveAlbumModels(catId: string) {
 }
 
 onMounted(async () => {
+  const initData = getTelegramInitData()
+  if (!initData) {
+    isAuthorized.value = false
+    loading.value = false
+    return
+  }
+
   if (typeof window !== 'undefined' && (window as any).Telegram?.WebApp) {
     const tg = (window as any).Telegram.WebApp
     tg.ready()
