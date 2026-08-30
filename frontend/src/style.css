@@ -117,3 +117,12 @@ body {
   color: #080c14 !important;
   box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25), 0 1px 0 rgba(255, 255, 255, 0.6) inset;
 }
+
+/* Hide Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

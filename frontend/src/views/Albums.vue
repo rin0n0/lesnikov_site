@@ -57,14 +57,14 @@
             class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all"
             :class="viewMode === 'models' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'"
           >
-            📋 Модели и цены
+            <AppIcon name="list" :size="16" /> Модели и цены
           </button>
           <button 
             @click="viewMode = 'gallery'"
             class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all"
             :class="viewMode === 'gallery' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'"
           >
-            🖼️ Все развороты
+            <AppIcon name="image" :size="16" /> Все развороты
           </button>
         </div>
       </div>
@@ -94,7 +94,7 @@
                 />
                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors flex items-center justify-center">
                   <span class="opacity-0 group-hover:opacity-100 px-3.5 py-1.5 bg-black/70 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-opacity">
-                    🔍 Посмотреть все развороты
+                    <AppIcon name="search" :size="14" class="mr-1" /> Посмотреть все развороты
                   </span>
                 </div>
                 
@@ -167,18 +167,17 @@
                   </div>
                 </div>
 
-                <!-- Features Highlights -->
                 <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-[11px] text-slate-500 dark:text-slate-400 font-medium">
                   <div class="flex items-center gap-1.5">
-                    <span class="text-emerald-500 font-bold">✓</span>
+                    <AppIcon name="check" :size="14" class="text-emerald-500" />
                     <span>2 визита фотографа включены</span>
                   </div>
                   <div class="flex items-center gap-1.5">
-                    <span class="text-emerald-500 font-bold">✓</span>
+                    <AppIcon name="check" :size="14" class="text-emerald-500" />
                     <span>Бесплатная досъемка</span>
                   </div>
                   <div class="flex items-center gap-1.5">
-                    <span class="text-emerald-500 font-bold">✓</span>
+                    <AppIcon name="check" :size="14" class="text-emerald-500" />
                     <span>Выбор фото родителями онлайн</span>
                   </div>
                 </div>
@@ -231,6 +230,7 @@ import { fetchSiteData } from '../api'
 import UniformPhotoGrid from '../components/UniformPhotoGrid.vue'
 import LightboxModal from '../components/LightboxModal.vue'
 import CategoryIcon from '../components/CategoryIcon.vue'
+import AppIcon from '../components/AppIcon.vue'
 
 const siteData = ref<any>(null)
 const loading = ref(true)

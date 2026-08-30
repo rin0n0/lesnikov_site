@@ -19,8 +19,8 @@
 
         <!-- Geolocation Chip -->
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200/60 dark:bg-slate-800/80 text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-3 border border-slate-300/40 dark:border-slate-700/50">
-          <span>📍</span>
-          <span>Санкт-Петербург · Ломоносов</span>
+          <AppIcon name="location" :size="14" />
+          <span>Санкт-Петербург</span>
         </div>
 
         <!-- Name & Bio -->
@@ -31,27 +31,20 @@
           Профессиональный фотограф
         </p>
 
-        <!-- Trust Badges -->
-        <div class="flex flex-wrap justify-center gap-2 mb-8 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
-          <span class="px-3 py-1 rounded-lg liquid-card">📸 10+ лет опыта</span>
-          <span class="px-3 py-1 rounded-lg liquid-card">📚 1000+ выпускных альбомов</span>
-          <span class="px-3 py-1 rounded-lg liquid-card">⚡ Быстрая отдача фото</span>
-        </div>
-
         <!-- Navigation Buttons to 2 key worlds -->
         <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
           <router-link 
             to="/albums" 
             class="bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-7 py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg hover:opacity-90 transition-all active:scale-95 flex items-center gap-2"
           >
-            <span>🎓</span>
+            <AppIcon name="graduation" :size="18" />
             <span>Выпускные альбомы</span>
           </router-link>
           <router-link 
             to="/photoshoots" 
             class="px-7 py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider liquid-card hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95 flex items-center gap-2 text-gray-800 dark:text-white"
           >
-            <span>📷</span>
+            <AppIcon name="camera" :size="18" />
             <span>Фотосессии</span>
           </router-link>
         </div>
@@ -60,14 +53,6 @@
 
     <!-- Straight Rectangular Natural Photo Grid -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xs sm:text-sm font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400">
-          Избранные работы ({{ galleryImages.length }})
-        </h2>
-        <span class="text-xs text-slate-400">
-          Кликните на фото для просмотра
-        </span>
-      </div>
 
       <!-- Loading State -->
       <div v-if="loading" class="columns-1 sm:columns-2 lg:columns-3 gap-6">
@@ -95,6 +80,7 @@ import { ref, computed, onMounted } from 'vue'
 import { fetchSiteData } from '../api'
 import UniformPhotoGrid from '../components/UniformPhotoGrid.vue'
 import LightboxModal from '../components/LightboxModal.vue'
+import AppIcon from '../components/AppIcon.vue'
 
 const images = ref<string[]>([])
 const loading = ref(true)

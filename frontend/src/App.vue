@@ -23,7 +23,7 @@
             </span>
           </div>
           <span class="text-[10px] tracking-wider text-slate-500 dark:text-slate-400 font-medium uppercase -mt-0.5">
-            Владимир Лесников <span class="text-slate-400 dark:text-slate-600">·</span> СПб & Ломоносов
+            Владимир Лесников <span class="text-slate-400 dark:text-slate-600">·</span> Санкт-Петербург
           </span>
         </router-link>
         
@@ -77,7 +77,7 @@
             class="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl liquid-card text-xs font-bold text-gray-700 dark:text-gray-200 hover:text-gray-900 transition-transform active:scale-95"
             title="Позвонить фотографу"
           >
-            <span>📞</span>
+            <AppIcon name="phone" :size="14" />
             <span class="font-mono">+7 (911) 777-57-00</span>
           </a>
           
@@ -95,8 +95,8 @@
             class="md:hidden w-10 h-10 rounded-xl liquid-card flex items-center justify-center text-gray-800 dark:text-white transition-all active:scale-90"
             :aria-label="mobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'"
           >
-            <span v-if="!mobileMenuOpen" class="text-lg leading-none">☰</span>
-            <span v-else class="text-lg leading-none font-bold">✕</span>
+            <span v-if="!mobileMenuOpen" class="text-lg leading-none flex items-center justify-center"><AppIcon name="menu" :size="20" /></span>
+            <span v-else class="text-lg leading-none flex items-center justify-center"><AppIcon name="close" :size="20" /></span>
           </button>
         </div>
       </div>
@@ -109,8 +109,8 @@
         >
           <!-- Geo Badge -->
           <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-900/80 px-3.5 py-2 rounded-xl border border-slate-200/60 dark:border-slate-800">
-            <span>📍</span>
-            <span>г. Санкт-Петербург, Ломоносов и область</span>
+            <AppIcon name="location" :size="14" />
+            <span>Санкт-Петербург и Ленинградская область</span>
           </div>
 
           <!-- Nav Links -->
@@ -171,7 +171,7 @@
                 href="tel:+79117775700" 
                 class="py-2.5 px-3 rounded-xl liquid-card text-xs font-bold text-center flex items-center justify-center gap-1.5 text-gray-800 dark:text-white"
               >
-                <span>📞</span>
+                <AppIcon name="phone" :size="14" />
                 <span>Позвонить</span>
               </a>
               <a 
@@ -208,7 +208,7 @@
             Владимир Лесников — профессиональный фотограф
           </div>
           <div class="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
-            г. Санкт-Петербург, Ломоносов и Ленинградская область
+            Санкт-Петербург и Ленинградская область
           </div>
         </div>
 

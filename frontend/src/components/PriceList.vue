@@ -39,17 +39,13 @@
     class="mb-10 p-6 sm:p-8 rounded-3xl liquid-card flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-md border border-white/60 dark:border-white/10"
   >
     <div class="space-y-2">
-      <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-[11px] font-extrabold uppercase tracking-wider">
-        <span>●</span>
-        <span>Фиксированная ставка</span>
-      </div>
       <div class="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white font-mono">
         {{ Number(singlePrice).toLocaleString('ru-RU') }} ₽ <span class="text-base font-normal text-gray-400">/ час</span>
       </div>
-      <div class="text-xs text-gray-600 dark:text-gray-300 flex flex-wrap gap-x-4 gap-y-1 pt-1">
-        <span>✓ Консультация и помощь с позированием</span>
-        <span>✓ Авторская цветокоррекция всех удачных кадров</span>
-        <span>✓ Передача через удобную онлайн-галерею</span>
+      <div class="text-xs text-gray-600 dark:text-gray-300 flex flex-wrap gap-x-4 gap-y-1.5 pt-1">
+        <span class="flex items-center gap-1.5"><AppIcon name="check" :size="12" class="text-emerald-500" /> Консультация и помощь с позированием</span>
+        <span class="flex items-center gap-1.5"><AppIcon name="check" :size="12" class="text-emerald-500" /> Авторская цветокоррекция всех удачных кадров</span>
+        <span class="flex items-center gap-1.5"><AppIcon name="check" :size="12" class="text-emerald-500" /> Передача через удобную онлайн-галерею</span>
       </div>
     </div>
     
@@ -63,6 +59,7 @@
 </template>
 
 <script setup lang="ts">
+import AppIcon from './AppIcon.vue'
 defineProps<{
   items?: Array<{ name: string; price: number }>
   singlePrice?: string | number

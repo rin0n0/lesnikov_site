@@ -3,8 +3,8 @@
     <!-- Header -->
     <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200/60 dark:bg-slate-800/80 text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-3 border border-slate-300/40 dark:border-slate-700/50">
-        <span>📍</span>
-        <span>Санкт-Петербург · Ломоносов · ЛО</span>
+        <AppIcon name="location" :size="14" />
+        <span>Санкт-Петербург</span>
       </div>
       <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight mb-3 uppercase text-gray-900 dark:text-white">
         Контакты
@@ -56,25 +56,7 @@
           </a>
         </div>
 
-        <!-- Messengers Quick Bar (WhatsApp & Telegram) -->
-        <div class="grid grid-cols-2 gap-3 pt-1">
-          <a 
-            href="https://wa.me/79117775700" 
-            target="_blank"
-            class="p-3.5 rounded-2xl liquid-card flex items-center justify-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-all border border-emerald-500/20"
-          >
-            <span class="text-base">💬</span>
-            <span>WhatsApp</span>
-          </a>
-          <a 
-            href="https://t.me/lesnikovfoto" 
-            target="_blank"
-            class="p-3.5 rounded-2xl liquid-card flex items-center justify-center gap-2 text-xs font-bold text-sky-500 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-950/30 transition-all border border-sky-500/20"
-          >
-            <span class="text-base">✈️</span>
-            <span>Telegram</span>
-          </a>
-        </div>
+
 
         <!-- Location Card -->
         <div class="liquid-card p-4 sm:p-5 rounded-2xl flex items-center gap-4 shadow-sm border border-white/60 dark:border-white/10">
@@ -84,7 +66,7 @@
           <div>
             <div class="text-[10px] uppercase tracking-wider text-gray-400 font-bold">Локация съемок</div>
             <div class="text-xs sm:text-sm font-bold text-gray-900 dark:text-white mt-0.5">
-              {{ contactData.location || 'Санкт-Петербург, г. Ломоносов и Ленинградская обл.' }}
+              {{ contactData.location || 'Санкт-Петербург и Ленинградская область' }}
             </div>
           </div>
         </div>
@@ -111,9 +93,8 @@
         <h2 class="text-xl sm:text-2xl font-black tracking-tight text-gray-900 dark:text-white mb-1">
           Оставить заявку
         </h2>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mb-6 flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Сообщение моментально поступит в Telegram фотографа</span>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-6">
+          Сообщение моментально поступит в Telegram фотографа
         </p>
 
         <form @submit.prevent="submit" class="space-y-4">

@@ -6,23 +6,23 @@
         Фотосессии
       </h1>
       <p class="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
-        Свадебная, семейная, детская, индивидуальная и репортажная фотография в Санкт-Петербурге и Ломоносове
+        Свадебная, семейная, детская, индивидуальная и репортажная фотография в Санкт-Петербурге и Ленинградской области
       </p>
     </div>
 
     <!-- Category Tabs (2-Column Chess on Mobile 2 + 2 + 1, Linear on Desktop) -->
     <div class="mb-10">
-      <div class="grid grid-cols-2 sm:flex sm:justify-center gap-2.5 max-w-2xl mx-auto p-1.5 rounded-2xl liquid-card">
+      <div class="flex flex-wrap justify-center gap-2.5 max-w-2xl mx-auto p-1.5 rounded-2xl liquid-card">
         <button
           v-for="(tab, idx) in shootTabs"
           :key="tab.id"
           @click="activeTab = tab.id"
-          class="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200"
+          class="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 w-[calc(50%-0.4rem)] sm:w-auto"
           :class="[
             activeTab === tab.id 
               ? 'liquid-btn-active shadow-md' 
               : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white',
-            idx === 4 ? 'col-span-2 sm:col-span-1' : ''
+            idx === 4 ? 'w-full sm:w-auto mx-auto' : ''
           ]"
         >
           <CategoryIcon :name="tab.id" :size="16" />
@@ -53,14 +53,6 @@
 
       <!-- Photo Series in Natural Aspect Ratio -->
       <div>
-        <div class="flex items-center justify-between mb-6">
-          <h3 class="text-sm font-bold tracking-widest uppercase text-gray-500 dark:text-gray-400">
-            Примеры фотографий ({{ currentShootData.images.length }})
-          </h3>
-          <span class="text-xs text-gray-400">
-            Кликните для полного размера
-          </span>
-        </div>
 
         <UniformPhotoGrid 
           :images="currentShootData.images" 
