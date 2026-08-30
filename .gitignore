@@ -48,7 +48,7 @@ dist-ssr/
 *.local
 
 # ====================================
-# Logs & Temp files
+# Logs & Temp files & Leads
 # ====================================
 *.log
 logs/
@@ -56,6 +56,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+backend/data/leads.json
+feedback.json
 
 # ====================================
 # Operating System & IDEs

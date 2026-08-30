@@ -24,6 +24,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT || 14888 }}
           script_stop: true
           script: |
+            set -e
             echo "🚀 Starting deployment on VPS..."
             
             PROJECT_DIR="$HOME/lesnikov_site"
@@ -40,26 +41,44 @@ jobs:
             git remote remove origin 2>/dev/null || true
             git remote add origin https://github.com/${{ github.repository }}.git
 
-            # Синхронизация
+            # Синхронизация с защитой от сбоев сети
             echo "Fetching and synchronizing with origin/main..."
-            git fetch origin main
-            git checkout -B main origin/main
+            for i in 1 2 3 4 5; do
+              echo "Попытка $i: git fetch origin main..."
+              if git fetch origin main; then
+                echo "Изменения успешно получены"
+                break
+              else
+                if [ "$i" -eq 5 ]; then
+                  echo "Ошибка: не удалось подключиться к github.com"
+                  exit 1
+                fi
+                echo "Повтор через 3 секунды..."
+                sleep 3
+              fi
+            done
+
+            # Форсированный сброс до ветки origin/main (исключает ошибки checkout и конфликты локальных файлов)
             git reset --hard origin/main
             git clean -fd
 
-            # Генерируем backend/.env
+            # Генерируем backend/.env со всеми параметрами (TMA, Xray Proxy, SMTP)
             echo "Creating backend/.env..."
             cat << 'EOF' > backend/.env
-            TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
-            TELEGRAM_ADMIN_ID=${{ secrets.TELEGRAM_ADMIN_ID }}
+            TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN || '8166457754:AAHMmL8hkmSaRClTCJ4K0TPBrgBd9JEO5fw' }}
+            TELEGRAM_ADMIN_ID=${{ secrets.TELEGRAM_ADMIN_ID || '5058377622,1076863685' }}
+            TMA_URL=${{ secrets.TMA_URL || 'https://lesnikovfoto.rinnxx.ru/admin' }}
+            PROXY_URL=${{ secrets.PROXY_URL || 'http://xray:10809' }}
+            SMTP_HOST=${{ secrets.SMTP_HOST || '' }}
+            SMTP_PORT=${{ secrets.SMTP_PORT || '465' }}
+            SMTP_USER=${{ secrets.SMTP_USER || '' }}
+            SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD || '' }}
+            TARGET_EMAIL=${{ secrets.TARGET_EMAIL || 'artemelesnikov@gmail.com' }}
             EOF
 
-            # Пересобираем контейнеры начисто
-            echo "Building containers with no-cache..."
-            docker compose build --no-cache
-
-            echo "Starting containers..."
-            docker compose up -d --remove-orphans
+            # Пересобираем и запускаем контейнеры
+            echo "Building and starting containers..."
+            docker compose up -d --build --remove-orphans
 
             echo "Cleaning up dangling images..."
             docker image prune -f
