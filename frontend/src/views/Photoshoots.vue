@@ -12,17 +12,17 @@
 
     <!-- Category Tabs (2-Column Chess on Mobile 2 + 2 + 1, Linear on Desktop) -->
     <div class="mb-10">
-      <div class="flex flex-wrap justify-center gap-2.5 max-w-2xl mx-auto p-1.5 rounded-2xl liquid-card">
+      <div class="grid grid-cols-2 md:flex md:flex-row md:flex-nowrap md:w-fit justify-center gap-2 md:gap-2.5 max-w-md md:max-w-none mx-auto p-1.5 rounded-2xl liquid-card">
         <button
           v-for="(tab, idx) in shootTabs"
           :key="tab.id"
           @click="activeTab = tab.id"
-          class="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 w-[calc(50%-0.4rem)] sm:w-auto"
+          class="inline-flex items-center justify-center gap-2 px-3 sm:px-4 md:px-5 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-wider transition-all duration-200 whitespace-nowrap"
           :class="[
             activeTab === tab.id 
               ? 'liquid-btn-active shadow-md' 
               : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white',
-            idx === 4 ? 'w-full sm:w-auto mx-auto' : ''
+            idx === 4 ? 'col-span-2 md:col-span-1' : ''
           ]"
         >
           <CategoryIcon :name="tab.id" :size="16" />

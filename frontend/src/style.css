@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --bg-color: #f8fafc;
@@ -30,38 +31,94 @@ body {
    ========================================================================== */
 
 .header-glass {
-  background-color: rgba(255, 255, 255, 0.75) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  backdrop-filter: blur(20px) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4) !important;
   box-shadow: 
-    0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
-    0 10px 30px -5px rgba(0, 0, 0, 0.08),
-    0 20px 40px -15px rgba(0, 0, 0, 0.05);
+    0 1px 0 0 rgba(255, 255, 255, 0.8) inset,
+    0 10px 30px -5px rgba(0, 0, 0, 0.05);
 }
 
 @media (prefers-color-scheme: dark) {
   .header-glass {
-    background-color: rgba(8, 12, 20, 0.75) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    backdrop-filter: blur(20px) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background-color: rgba(8, 12, 20, 0.55) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     box-shadow: 
-      0 1px 0 0 rgba(255, 255, 255, 0.2) inset,
-      0 12px 30px -5px rgba(0, 0, 0, 0.7),
-      0 25px 50px -12px rgba(0, 0, 0, 0.9);
+      0 1px 0 0 rgba(255, 255, 255, 0.15) inset,
+      0 12px 30px -5px rgba(0, 0, 0, 0.5);
   }
 }
 
 .dark .header-glass {
-  background-color: rgba(8, 12, 20, 0.75) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  backdrop-filter: blur(20px) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(8, 12, 20, 0.55) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   box-shadow: 
-    0 1px 0 0 rgba(255, 255, 255, 0.2) inset,
-    0 12px 30px -5px rgba(0, 0, 0, 0.7),
-    0 25px 50px -12px rgba(0, 0, 0, 0.9);
+    0 1px 0 0 rgba(255, 255, 255, 0.15) inset,
+    0 12px 30px -5px rgba(0, 0, 0, 0.5);
+}
+
+/* 3D Liquid Crystal Glass Floating Island Modal (Плотное пепельно-дымчатое 3D-стекло с глубоким блюром) */
+.glass-backdrop {
+  background-color: rgba(0, 0, 0, 0.35) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.glass-tile {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.35) 60%, rgba(230, 235, 245, 0.4) 100%), rgba(245, 248, 252, 0.65) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(190%) !important;
+  backdrop-filter: blur(32px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 
+    0 1.5px 1.5px 0 rgba(255, 255, 255, 0.95) inset,
+    0 -1.5px 1.5px 0 rgba(0, 0, 0, 0.05) inset,
+    0 25px 50px -12px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.4) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .glass-backdrop {
+    background-color: rgba(0, 0, 0, 0.45) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    backdrop-filter: blur(14px) !important;
+  }
+  
+  .glass-tile {
+    /* Плотное пепельно-дымчатое стекло с 3D-бликом и глубоким блюром */
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 60%, rgba(0, 0, 0, 0.2) 100%), rgba(18, 24, 38, 0.68) !important;
+    -webkit-backdrop-filter: blur(36px) saturate(190%) !important;
+    backdrop-filter: blur(36px) saturate(190%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 
+      0 1.5px 1.5px 0 rgba(255, 255, 255, 0.5) inset,
+      0 -1.5px 1.5px 0 rgba(0, 0, 0, 0.5) inset,
+      0 30px 70px -15px rgba(0, 0, 0, 0.85),
+      0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+  }
+}
+
+.dark .glass-backdrop {
+  background-color: rgba(0, 0, 0, 0.45) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  backdrop-filter: blur(14px) !important;
+}
+
+.dark .glass-tile {
+  /* Плотное пепельно-дымчатое стекло с 3D-бликом и глубоким блюром */
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 60%, rgba(0, 0, 0, 0.2) 100%), rgba(18, 24, 38, 0.68) !important;
+  -webkit-backdrop-filter: blur(36px) saturate(190%) !important;
+  backdrop-filter: blur(36px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 
+    0 1.5px 1.5px 0 rgba(255, 255, 255, 0.5) inset,
+    0 -1.5px 1.5px 0 rgba(0, 0, 0, 0.5) inset,
+    0 30px 70px -15px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(255, 255, 255, 0.08) !important;
 }
 
 /* 3D Liquid Glass Cards & Badges */
