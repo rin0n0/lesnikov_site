@@ -30,18 +30,20 @@ jobs:
             mkdir -p "$PROJECT_DIR"
             cd "$PROJECT_DIR"
 
-            # Инициализируем git, если еще не инициализирован
+            # Инициализация Git (совместима со старыми и новыми версиями Git)
             if [ ! -d ".git" ]; then
               echo "Initializing Git repository..."
-              git init -b main
-              git remote add origin https://github.com/${{ github.repository }}.git || git remote set-url origin https://github.com/${{ github.repository }}.git
-            else
-              git remote set-url origin https://github.com/${{ github.repository }}.git
+              git init
             fi
 
-            # Жестко синхронизируем с origin/main
+            # Привязываем origin
+            git remote remove origin 2>/dev/null || true
+            git remote add origin https://github.com/${{ github.repository }}.git
+
+            # Синхронизация
             echo "Fetching and synchronizing with origin/main..."
             git fetch origin main
+            git checkout -B main origin/main
             git reset --hard origin/main
             git clean -fd
 
