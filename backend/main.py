@@ -59,7 +59,51 @@ def save_data(data):
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-app = FastAPI(title="Vladimir Lesnikov Photography API")
+from contextlib import asynccontextmanager
+
+# Setup Bot session with Xray proxy support (Обход блокировок Telegram API)
+bot_session = None
+if PROXY_URL:
+    try:
+        bot_session = AiohttpSession(proxy=PROXY_URL)
+        logging.info(f"🛡️ Configured AiohttpSession with Xray proxy: {PROXY_URL}")
+    except Exception as e:
+        logging.error(f"Failed to initialize proxy session: {e}")
+
+bot = None
+dp = Dispatcher()
+if TELEGRAM_BOT_TOKEN and not TELEGRAM_BOT_TOKEN.startswith("123456789:"):
+    try:
+        if bot_session:
+            bot = Bot(token=TELEGRAM_BOT_TOKEN, session=bot_session)
+        else:
+            bot = Bot(token=TELEGRAM_BOT_TOKEN)
+    except Exception as e:
+        logging.warning(f"Bot init error: {e}")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    polling_task = None
+    if bot is not None:
+        try:
+            await bot.delete_webhook(drop_pending_updates=True)
+        except Exception as e:
+            logging.warning(f"Could not drop pending updates on startup: {e}")
+        polling_task = asyncio.create_task(dp.start_polling(bot))
+        logging.info("🤖 Telegram Bot polling started.")
+    else:
+        logging.warning("Bot is inactive in development mode.")
+    yield
+    if polling_task is not None:
+        polling_task.cancel()
+        try:
+            await polling_task
+        except asyncio.CancelledError:
+            pass
+    if bot is not None:
+        await bot.session.close()
+
+app = FastAPI(title="Vladimir Lesnikov Photography API", lifespan=lifespan)
 
 # Setup CORS
 app.add_middleware(
@@ -87,26 +131,6 @@ async def get_thumbnail(filename: str):
 
 # Static full-res uploads
 app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
-
-# Bot session with Xray proxy support (Обход блокировок Telegram API)
-bot_session = None
-if PROXY_URL:
-    try:
-        bot_session = AiohttpSession(proxy=PROXY_URL)
-        logging.info(f"🛡️ Configured AiohttpSession with Xray proxy: {PROXY_URL}")
-    except Exception as e:
-        logging.error(f"Failed to initialize proxy session: {e}")
-
-bot = None
-dp = Dispatcher()
-if TELEGRAM_BOT_TOKEN and not TELEGRAM_BOT_TOKEN.startswith("123456789:"):
-    try:
-        if bot_session:
-            bot = Bot(token=TELEGRAM_BOT_TOKEN, session=bot_session)
-        else:
-            bot = Bot(token=TELEGRAM_BOT_TOKEN)
-    except Exception as e:
-        logging.warning(f"Bot init error: {e}")
 
 # --- TMA AUTH HELPER ---
 def verify_telegram_init_data(x_telegram_init_data: str = Header(None)):
@@ -488,18 +512,6 @@ async def cmd_start(message: types.Message):
         reply_markup=get_admin_keyboard(),
         parse_mode=ParseMode.HTML
     )
-
-@app.on_event("startup")
-async def on_startup():
-    if bot is not None:
-        asyncio.create_task(dp.start_polling(bot))
-    else:
-        logging.warning("Bot is inactive in development mode.")
-
-@app.on_event("shutdown")
-async def on_shutdown():
-    if bot is not None:
-        await bot.session.close()
 
 if __name__ == "__main__":
     import uvicorn

@@ -1,7 +1,10 @@
 fastapi
 uvicorn[standard]
 aiogram
+aiohttp-socks
+httpx
 pydantic
 python-dotenv
 pillow
 python-multipart
+
