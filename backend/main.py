@@ -301,7 +301,7 @@ async def cmd_start(message: types.Message):
     kb = types.InlineKeyboardMarkup(inline_keyboard=[[
         types.InlineKeyboardButton(
             text="⚡️ Открыть панель управления",
-            web_app=types.WebAppInfo(url="https://ваш-домен.ру/admin")
+            web_app=types.WebAppInfo(url="https://lesnikovfoto.rinnxx.ru/admin")
         )
     ]])
     await message.answer(
