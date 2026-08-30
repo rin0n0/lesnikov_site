@@ -6,9 +6,10 @@
         <!-- Vladimir's B&W Portrait Avatar -->
         <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-2 border-slate-900/10 dark:border-white/20 shadow-xl mb-6 bg-slate-200 dark:bg-slate-800">
           <img 
-            :src="'/uploads/home_9df4621f.jpg'" 
+            src="/avatar.jpg" 
             alt="Владимир Лесников"
             class="w-full h-full object-cover grayscale contrast-110"
+            @error="(e) => (e.target as HTMLImageElement).src = '/uploads/home_9df4621f.jpg'"
           />
         </div>
 
