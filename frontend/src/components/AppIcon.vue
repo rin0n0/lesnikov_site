@@ -261,6 +261,23 @@
   >
     <polyline points="9 18 15 12 9 6"/>
   </svg>
+
+  <!-- Arrow Up Icon -->
+  <svg 
+    v-else-if="name === 'arrow-up'"
+    :width="size || 20" 
+    :height="size || 20" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    stroke-width="2.5" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+    class="inline-block shrink-0"
+  >
+    <line x1="12" y1="19" x2="12" y2="5"/>
+    <polyline points="5 12 12 5 19 12"/>
+  </svg>
 </template>
 
 <script setup lang="ts">

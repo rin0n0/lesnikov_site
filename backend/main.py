@@ -127,7 +127,7 @@ async def get_thumbnail(filename: str):
         else:
             raise HTTPException(status_code=404, detail="Image not found")
             
-    return FileResponse(thumb_path, headers={"Cache-Control": "public, max-age=86400"})
+    return FileResponse(thumb_path, headers={"Cache-Control": "public, max-age=31536000, immutable"})
 
 # Static full-res uploads
 app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")

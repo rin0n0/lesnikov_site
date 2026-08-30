@@ -193,6 +193,14 @@
           <router-link to="/contacts" class="hover:text-gray-900 dark:hover:text-white transition-colors">
             Оставить заявку
           </router-link>
+          <button 
+            @click="scrollToTop" 
+            class="flex items-center gap-1 hover:text-gray-900 dark:hover:text-white transition-colors text-[11px] font-bold uppercase tracking-wider cursor-pointer"
+            title="Прокрутить в начало страницы"
+          >
+            <AppIcon name="arrow-up" :size="14" />
+            <span>Наверх</span>
+          </button>
         </div>
 
         <div class="text-[11px]">
@@ -200,18 +208,60 @@
         </div>
       </div>
     </footer>
+
+    <!-- Floating Liquid Glass Back to Top Button (Появляется при прокрутке вниз) -->
+    <transition name="fade">
+      <button
+        v-if="showBackToTop && $route.path !== '/admin'"
+        @click="scrollToTop"
+        class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 p-3.5 sm:px-4 sm:py-3 rounded-2xl glass-tile shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 text-xs font-black uppercase tracking-wider text-gray-900 dark:text-white group border border-black/10 dark:border-white/15 cursor-pointer"
+        title="Наверх"
+        aria-label="Прокрутить наверх"
+      >
+        <AppIcon name="arrow-up" :size="16" class="transition-transform group-hover:-translate-y-0.5" />
+        <span class="hidden sm:inline">Наверх</span>
+      </button>
+    </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import AppIcon from './components/AppIcon.vue'
 
 const mobileMenuOpen = ref(false)
+const showBackToTop = ref(false)
 
 function closeMobileMenu() {
   mobileMenuOpen.value = false
 }
+
+function scrollToTop() {
+  if (typeof window !== 'undefined') {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+}
+
+function handleScroll() {
+  if (typeof window !== 'undefined') {
+    showBackToTop.value = window.scrollY > 350
+  }
+}
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+  }
+})
+
+onBeforeUnmount(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('scroll', handleScroll)
+  }
+})
 </script>
 
 <style>
